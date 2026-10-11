@@ -1,4 +1,4 @@
-# FPGA Identikits — companion code
+# FPGA Identikits â€” companion code
 
 VHDL reference implementations and self-checking testbenches for **FPGA
 Identikits: A Practical VHDL Reference for Digital Building Blocks**, by Andrea
@@ -109,6 +109,12 @@ The book repository's `scripts/export_companion.py` maintains the source mapping
 
 ## Licensing
 
-A reuse licence has not yet been selected by the author. No licence file is
-included in this initial publication; check the repository for the author's
-licensing decision before redistributing or incorporating the code.
+Copyright (c) 2026 Andrea Fato. This companion repository's VHDL, testbenches,
+scripts and documentation are released under the [MIT License](LICENSE).
+You may use and adapt them in educational, open-source and commercial projects,
+including proprietary designs. Retain the copyright and permission notice in
+copies or substantial portions of the software. The software is provided without
+warranty; see the licence for the full terms.
+
+This licence covers the companion repository. It does not license the book's
+prose, illustrations, cover artwork or PDF editions.
