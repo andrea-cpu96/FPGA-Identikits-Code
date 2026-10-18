@@ -1,4 +1,4 @@
-# 2.1.4 — One-hot to binary
+# 2.1.6 — One-hot to binary
 
 Converts an eight-bit one-hot vector into the three-bit index of its asserted bit. A valid output confirms that the input contains exactly one literal '1' and no unknown or weak values.
 
@@ -62,7 +62,7 @@ end entity one_hot_to_binary_8_to_3;
 
 ## Source traceability
 
-- Book identikit: **2.1.4**.
+- Book identikit: **2.1.6**.
 - Book source: `components/one-hot-to-binary.tex`.
 - RTL SHA-256 (UTF-8, LF): `71d300cb82301e0b3dbc2161c3efcf83898e2387949a2feffddf3cbcb183ecd6`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

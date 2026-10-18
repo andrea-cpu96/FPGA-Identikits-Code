@@ -1,0 +1,25 @@
+{
+  "compile": [
+    {
+      "source": "components/decoder-n.tex",
+      "sha256": "f57e6aea730aab156a91fe00cc77339442b4e010031a2f6592d3655960c564c4",
+      "passed": true
+    },
+    {
+      "source": "components/priority-encoder-n.tex",
+      "sha256": "f8728b879da085c8c998abae7ef216fafab11eba92b215c00077c4c1b90d3808",
+      "passed": true
+    }
+  ],
+  "configurations": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    16
+  ],
+  "nonliteral_values": "UXZWLH-",
+  "suite": "audit_generic_encoding",
+  "passed": true
+}

@@ -85,6 +85,18 @@
   },
   {
     "number": "2.1.3",
+    "title": "N-output decoder",
+    "slug": "decoder-n",
+    "entity": "decoder_n",
+    "source": "components/decoder-n.tex",
+    "sha256": "f57e6aea730aab156a91fe00cc77339442b4e010031a2f6592d3655960c564c4",
+    "folder": "02-01-code-selection-and-representation/decoder-n",
+    "rtl": "decoder_n.vhd",
+    "testbench": "tb_decoder_n.vhd",
+    "top": "tb_decoder_n"
+  },
+  {
+    "number": "2.1.4",
     "title": "Priority encoder",
     "slug": "priority-encoder",
     "entity": "priority_encoder_8_to_3",
@@ -96,7 +108,19 @@
     "top": "tb_priority_encoder_8_to_3"
   },
   {
-    "number": "2.1.4",
+    "number": "2.1.5",
+    "title": "N-input priority encoder",
+    "slug": "priority-encoder-n",
+    "entity": "priority_encoder_n",
+    "source": "components/priority-encoder-n.tex",
+    "sha256": "f8728b879da085c8c998abae7ef216fafab11eba92b215c00077c4c1b90d3808",
+    "folder": "02-01-code-selection-and-representation/priority-encoder-n",
+    "rtl": "priority_encoder_n.vhd",
+    "testbench": "tb_priority_encoder_n.vhd",
+    "top": "tb_priority_encoder_n"
+  },
+  {
+    "number": "2.1.6",
     "title": "One-hot to binary",
     "slug": "one-hot-to-binary",
     "entity": "one_hot_to_binary_8_to_3",

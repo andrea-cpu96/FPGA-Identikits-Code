@@ -1,4 +1,4 @@
-# 2.1.3 — Priority encoder
+# 2.1.4 — Priority encoder
 
 Examines eight request bits and returns the index of the highest asserted bit. Bit seven has the highest priority. A separate valid output distinguishes no request from a legitimate request on bit zero.
 
@@ -64,7 +64,7 @@ end entity priority_encoder_8_to_3;
 
 ## Source traceability
 
-- Book identikit: **2.1.3**.
+- Book identikit: **2.1.4**.
 - Book source: `components/priority-encoder.tex`.
 - RTL SHA-256 (UTF-8, LF): `0568030ddfc25f70f93189812fbf0984aea4c2127525f785a395553b813e4dda`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

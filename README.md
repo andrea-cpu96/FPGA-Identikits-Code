@@ -4,7 +4,7 @@ VHDL reference implementations and self-checking testbenches for **FPGA
 Identikits: A Practical VHDL Reference for Digital Building Blocks**, by Andrea
 Fato.
 
-This repository contains **100 identikits in 38 groups**, following the book's
+This repository contains **102 identikits in 38 groups**, following the book's
 section numbering. Every identikit folder contains its own RTL, testbench and
 README. The README explains the interface, local usage requirements, test
 configurations and how to run the example. Each testbench runs independently;
@@ -118,3 +118,10 @@ warranty; see the licence for the full terms.
 
 This licence covers the companion repository. It does not license the book's
 prose, illustrations, cover artwork or PDF editions.
+
+## Generic decoder and encoder additions (18 October 2026)
+
+The N-output decoder and N-input priority encoder use a VHDL generic for the
+number of lines. Their index widths are derived automatically. Both new
+standalone testbenches passed in ModelSim, including N=1 and non-power-of-two
+configurations. See verification/generic-encoding-export-report.json.
