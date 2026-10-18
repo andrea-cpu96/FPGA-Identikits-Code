@@ -1,4 +1,4 @@
-# 21.1.2 — Falling-edge detector
+# 22.1.2 — Falling-edge detector
 
 Compares the current clock-domain input with its previous sample. A 1-to-0 change raises a registered pulse for one complete clock period; unchanged or rising samples leave it low.
 
@@ -62,7 +62,7 @@ end entity falling_edge_detector;
 
 ## Source traceability
 
-- Book identikit: **21.1.2**.
+- Book identikit: **22.1.2**.
 - Book source: `components/falling-edge-detector.tex`.
 - RTL SHA-256 (UTF-8, LF): `7ed27505bfb0febed9ce8a759c147f424a909e50177c50618d769b436b9d4368`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

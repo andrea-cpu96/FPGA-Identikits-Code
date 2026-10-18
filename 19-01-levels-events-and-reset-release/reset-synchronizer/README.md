@@ -1,4 +1,4 @@
-# 19.1.3 — Reset synchronizer
+# 20.1.3 — Reset synchronizer
 
 Asserts an active-low reset without waiting for a clock. When the external reset returns high, two rising clock edges shift ones through a register chain before the local reset is released. Each destination clock domain needs its own reset-release chain.
 
@@ -64,7 +64,7 @@ end entity reset_synchronizer;
 
 ## Source traceability
 
-- Book identikit: **19.1.3**.
+- Book identikit: **20.1.3**.
 - Book source: `components/reset-synchronizer.tex`.
 - RTL SHA-256 (UTF-8, LF): `e8c02880f87bddd793cac3ebc7ad02c8e0987685009b5b45730205d55be19012`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

@@ -1,4 +1,4 @@
-# 20.1.1 — Ready/valid register
+# 21.1.1 — Ready/valid register
 
 Registers one stream word and its valid flag between a producer and a consumer. It accepts a new word whenever it is empty or its word is being taken in the same cycle, so it sustains one word per clock and holds its output during a stall.
 
@@ -71,7 +71,7 @@ end entity rv_register;
 
 ## Source traceability
 
-- Book identikit: **20.1.1**.
+- Book identikit: **21.1.1**.
 - Book source: `components/ready-valid-register.tex`.
 - RTL SHA-256 (UTF-8, LF): `628c2efa0dd1422090b9371fa191b9447b0aac0d58d23ffdfaaef7b3d0f2e32f`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

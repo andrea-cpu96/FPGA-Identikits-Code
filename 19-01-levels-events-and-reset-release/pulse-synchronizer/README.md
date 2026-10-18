@@ -1,4 +1,4 @@
-# 19.1.2 — Pulse synchronizer
+# 20.1.2 — Pulse synchronizer
 
 Turns each accepted source-clock event into a change of a stored bit. The destination synchronizes that bit and compares it with its previous synchronized value. An isolated change produces a one-destination-cycle pulse.
 
@@ -63,7 +63,7 @@ end entity pulse_synchronizer;
 
 ## Source traceability
 
-- Book identikit: **19.1.2**.
+- Book identikit: **20.1.2**.
 - Book source: `components/pulse-synchronizer.tex`.
 - RTL SHA-256 (UTF-8, LF): `ba1cde8adca295b547c24774b6d0871c26a0798bcc46167dbb86f57d63f374c1`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

@@ -1,4 +1,4 @@
-# 1.1 — Multiplexing & Demultiplexing
+# 1.1 — Data selection and distribution
 
 - [1.1.1 — 2:1 multiplexer](mux-2-to-1/)
 - [1.1.2 — N:1 multiplexer](mux-n-to-1/)

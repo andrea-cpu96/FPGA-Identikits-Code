@@ -1,4 +1,4 @@
-# 19.2.1 — CDC request/acknowledge mailbox
+# 20.2.1 — CDC request/acknowledge mailbox
 
 Accepts a word in the source domain, holds it stable, and signals a toggle request. The destination loads the held word, presents it with dst_valid, and returns an acknowledgement once it is consumed. Only one word is in flight at a time.
 
@@ -68,7 +68,7 @@ end entity cdc_mailbox;
 
 ## Source traceability
 
-- Book identikit: **19.2.1**.
+- Book identikit: **20.2.1**.
 - Book source: `components/cdc-mailbox.tex`.
 - RTL SHA-256 (UTF-8, LF): `bb35728bb78806d76bbe9289abdf23b3e86422dfe35eb3570a8383ac8da910c7`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

@@ -1,4 +1,4 @@
-# 19.1.1 — Two-FF synchronizer
+# 20.1.1 — Two-FF synchronizer
 
 Samples an asynchronous level through two registers on the destination clock. The first stage may become metastable; the time before the second stage samples it reduces the chance that an unsettled value reaches downstream logic.
 
@@ -62,7 +62,7 @@ end entity two_ff_synchronizer;
 
 ## Source traceability
 
-- Book identikit: **19.1.1**.
+- Book identikit: **20.1.1**.
 - Book source: `components/two-ff-synchronizer.tex`.
 - RTL SHA-256 (UTF-8, LF): `de0d517e28cc7a7238e0256f05ec00c771ab82c931deee1c136c9213ab107f38`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

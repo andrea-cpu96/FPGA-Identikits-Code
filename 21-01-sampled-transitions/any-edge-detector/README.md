@@ -1,4 +1,4 @@
-# 21.1.3 — Any-edge detector
+# 22.1.3 — Any-edge detector
 
 Compares the current clock-domain input with its previous sample. The registered output is high in each cycle whose sample changed in either direction. Consecutive changed samples can keep it high across cycles.
 
@@ -62,7 +62,7 @@ end entity any_edge_detector;
 
 ## Source traceability
 
-- Book identikit: **21.1.3**.
+- Book identikit: **22.1.3**.
 - Book source: `components/any-edge-detector.tex`.
 - RTL SHA-256 (UTF-8, LF): `5d34d18af17c41bd25ce0e8aa670851ddef4a7d07f0204ea31d494bbf2db4a35`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

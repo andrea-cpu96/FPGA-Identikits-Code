@@ -1,4 +1,4 @@
-# 22.1.1 — Divide-by-2
+# 23.1.1 — Divide-by-2
 
 A toggle flip-flop changes state at each rising edge of clk. After reset, its output has half the source frequency and equal high and low intervals of one source-clock period each.
 
@@ -62,7 +62,7 @@ end entity clock_divide_by_2;
 
 ## Source traceability
 
-- Book identikit: **22.1.1**.
+- Book identikit: **23.1.1**.
 - Book source: `components/clock-divide-by-2.tex`.
 - RTL SHA-256 (UTF-8, LF): `480fe3535a8ff49d5c9145286db5e52f2315f8ec363d15bdf5c8588a6fb82803`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

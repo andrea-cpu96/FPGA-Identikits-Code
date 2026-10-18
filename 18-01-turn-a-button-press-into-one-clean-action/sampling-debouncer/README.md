@@ -1,4 +1,4 @@
-# 18.1.2 — Sampling debouncer
+# 19.1.2 — Sampling debouncer
 
 Synchronizes a single asynchronous input and shifts one observation into a K-bit history at every rising edge. An all-one history sets the accepted level; an all-zero history clears it. Mixed history holds the previous level.
 
@@ -64,7 +64,7 @@ end entity sampling_debouncer;
 
 ## Source traceability
 
-- Book identikit: **18.1.2**.
+- Book identikit: **19.1.2**.
 - Book source: `components/sampling-debouncer.tex`.
 - RTL SHA-256 (UTF-8, LF): `b7cd18db889dfb8dff871e954d87a8902479ca0f7406dc20781e11534a88a65c`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

@@ -1,4 +1,4 @@
-# 18.1.1 — Counter-based debouncer
+# 19.1.1 — Counter-based debouncer
 
 Synchronizes a single asynchronous input, then accepts a different level only after STABLE consecutive qualifying clock samples. A sample matching the accepted level clears the timer. Both rising and falling changes are filtered.
 
@@ -64,7 +64,7 @@ end entity counter_based_debouncer;
 
 ## Source traceability
 
-- Book identikit: **18.1.1**.
+- Book identikit: **19.1.1**.
 - Book source: `components/counter-based-debouncer.tex`.
 - RTL SHA-256 (UTF-8, LF): `1ec5532e342d03e3b2b9f895979cd437b582621fe9608f8d20e36fceb5ba8b9c`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

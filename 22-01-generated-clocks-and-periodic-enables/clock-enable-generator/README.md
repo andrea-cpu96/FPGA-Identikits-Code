@@ -1,4 +1,4 @@
-# 22.1.3 — Clock-enable generator
+# 23.1.3 — Clock-enable generator
 
 A modulo-DIV counter asserts a registered tick when it wraps. The enable repeats every DIV source-clock cycles while all receiving registers remain on the original clk.
 
@@ -67,7 +67,7 @@ end entity clock_enable_generator;
 
 ## Source traceability
 
-- Book identikit: **22.1.3**.
+- Book identikit: **23.1.3**.
 - Book source: `components/clock-enable-generator.tex`.
 - RTL SHA-256 (UTF-8, LF): `636dd9a962b95e01672a7895220d042a0d43966783894d87c28250ea664e28c7`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

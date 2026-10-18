@@ -1,4 +1,4 @@
-# 20.2.2 — Round-robin arbiter
+# 21.2.2 — Round-robin arbiter
 
 Grants a shared resource to one of N requesters. When idle, or when the current holder signals done, it searches from the requester after the last one served and registers a one-hot grant, or zero if none is active. Every active requester is served within N$-$1 other grants.
 
@@ -64,7 +64,7 @@ end entity round_robin_arbiter;
 
 ## Source traceability
 
-- Book identikit: **20.2.2**.
+- Book identikit: **21.2.2**.
 - Book source: `components/round-robin-arbiter.tex`.
 - RTL SHA-256 (UTF-8, LF): `6baf3b083f78c9b36393756c01a0f9ec7b602401b9ff3c1b12021cf13d5c42e9`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

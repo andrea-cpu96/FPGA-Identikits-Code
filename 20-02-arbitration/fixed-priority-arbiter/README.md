@@ -1,4 +1,4 @@
-# 20.2.1 — Fixed-priority arbiter
+# 21.2.1 — Fixed-priority arbiter
 
 Grants a shared resource to one of N requesters. When idle, or when the current holder signals done, it registers a one-hot grant for the lowest-index active request. The grant is held, whatever the requests do, until service ends.
 
@@ -64,7 +64,7 @@ end entity fixed_priority_arbiter;
 
 ## Source traceability
 
-- Book identikit: **20.2.1**.
+- Book identikit: **21.2.1**.
 - Book source: `components/fixed-priority-arbiter.tex`.
 - RTL SHA-256 (UTF-8, LF): `77d4d5edca347b4ffea779e9386740a7d203ce5db36a70e6dcc54aa38a546161`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

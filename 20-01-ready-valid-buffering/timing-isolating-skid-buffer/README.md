@@ -1,4 +1,4 @@
-# 20.1.2 — Timing-isolating skid buffer
+# 21.1.2 — Timing-isolating skid buffer
 
 Stores stream words in an output register and a spare register. The spare captures one more accepted word when the consumer stalls. Both output data and validity are registered; input readiness depends only on stored state, breaking the combinational ready path between stages.
 
@@ -71,7 +71,7 @@ end entity skid_buffer;
 
 ## Source traceability
 
-- Book identikit: **20.1.2**.
+- Book identikit: **21.1.2**.
 - Book source: `components/timing-isolating-skid-buffer.tex`.
 - RTL SHA-256 (UTF-8, LF): `02ac2c510b63f47be944b707e8f83b2b2ac3cc05aabe47503ab6538294b5a2de`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

@@ -16,3 +16,11 @@ The checks exercise representative parameters, reference-model outputs, resets,
 protocol behavior and relevant boundary cases; consult each README and testbench
 for its actual scope. No exhaustive, formal, synthesis or hardware validation
 claim is made. The GHDL runner option has not been validated locally.
+
+
+## Digital Filters update — 2026-10-18
+
+All 105 identikits pass in fresh individual ModelSim libraries; see
+[filters-results.json](filters-results.json). Added moving average, signed FIR
+and first-order IIR tests. Existing RTL and testbench files were retained;
+book numbering was updated while keeping existing folder links stable.

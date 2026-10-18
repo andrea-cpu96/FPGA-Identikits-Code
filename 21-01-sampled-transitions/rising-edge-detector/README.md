@@ -1,4 +1,4 @@
-# 21.1.1 — Rising-edge detector
+# 22.1.1 — Rising-edge detector
 
 Compares the current clock-domain input with its previous sample. A 0-to-1 change raises a registered pulse for one complete clock period; unchanged or falling samples leave it low.
 
@@ -62,7 +62,7 @@ end entity rising_edge_detector;
 
 ## Source traceability
 
-- Book identikit: **21.1.1**.
+- Book identikit: **22.1.1**.
 - Book source: `components/rising-edge-detector.tex`.
 - RTL SHA-256 (UTF-8, LF): `567a135b074fbaa6fb595ee6c803d965f0ccc7eabcda6e324bbf917478d5b499`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

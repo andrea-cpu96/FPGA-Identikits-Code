@@ -4,7 +4,7 @@ VHDL reference implementations and self-checking testbenches for **FPGA
 Identikits: A Practical VHDL Reference for Digital Building Blocks**, by Andrea
 Fato.
 
-This repository contains **102 identikits in 38 groups**, following the book's
+This repository contains **105 identikits in 40 groups**, following the book's
 section numbering. Every identikit folder contains its own RTL, testbench and
 README. The README explains the interface, local usage requirements, test
 configurations and how to run the example. Each testbench runs independently;
@@ -44,9 +44,9 @@ GHDL route has not been validated in this release.
 
 | Book section | Identikit group | Blocks |
 |---|---|---|
-| 1.1 | [Multiplexing & Demultiplexing](01-01-multiplexing-demultiplexing/) | 4 |
-| 1.2 | [Shared I/O](01-02-shared-i-o/) | 1 |
-| 2.1 | [Code selection and representation](02-01-code-selection-and-representation/) | 4 |
+| 1.1 | [Data selection and distribution](01-01-multiplexing-demultiplexing/) | 4 |
+| 1.2 | [Shared I/O and bus ownership](01-02-shared-i-o/) | 1 |
+| 2.1 | [Code selection and representation](02-01-code-selection-and-representation/) | 6 |
 | 3.1 | [Word equality and ordering](03-01-word-equality-and-ordering/) | 2 |
 | 4.1 | [Representation, checking, and display](04-01-representation-checking-and-display/) | 6 |
 | 5.1 | [Variable combinational shifting](05-01-variable-combinational-shifting/) | 3 |
@@ -74,19 +74,23 @@ GHDL route has not been validated in this release.
 | 15.2 | [Register files](15-02-register-files/) | 1 |
 | 16.1 | [Inline contents and registered reads](16-01-inline-contents-and-registered-reads/) | 1 |
 | 17.1 | [Keeping a stream in order](17-01-keeping-a-stream-in-order/) | 2 |
-| 18.1 | [Turn a button press into one clean action](18-01-turn-a-button-press-into-one-clean-action/) | 2 |
-| 19.1 | [Levels, events, and reset release](19-01-levels-events-and-reset-release/) | 3 |
-| 19.2 | [Coherent word transfers](19-02-coherent-word-transfers/) | 1 |
-| 20.1 | [Ready/valid buffering](20-01-ready-valid-buffering/) | 2 |
-| 20.2 | [Arbitration](20-02-arbitration/) | 2 |
-| 21.1 | [Sampled transitions](21-01-sampled-transitions/) | 3 |
-| 22.1 | [Generated clocks and periodic enables](22-01-generated-clocks-and-periodic-enables/) | 3 |
-| 23.1 | [Streaming frame checks](23-01-streaming-frame-checks/) | 1 |
+| 18.1 | [Finite-window filters](18-01-finite-window-filters/) | 2 |
+| 18.2 | [Recursive smoothing](18-02-recursive-smoothing/) | 1 |
+| 19.1 | [Turn a button press into one clean action](18-01-turn-a-button-press-into-one-clean-action/) | 2 |
+| 20.1 | [Levels, events, and reset release](19-01-levels-events-and-reset-release/) | 3 |
+| 20.2 | [Coherent word transfers](19-02-coherent-word-transfers/) | 1 |
+| 21.1 | [Ready/valid buffering](20-01-ready-valid-buffering/) | 2 |
+| 21.2 | [Arbitration](20-02-arbitration/) | 2 |
+| 22.1 | [Sampled transitions](21-01-sampled-transitions/) | 3 |
+| 23.1 | [Generated clocks and periodic enables](22-01-generated-clocks-and-periodic-enables/) | 3 |
+| 24.1 | [Streaming frame checks](23-01-streaming-frame-checks/) | 1 |
+
+Existing folder paths are retained for stable links; the table and individual READMEs carry the current book numbering.
 
 ## Verification and limits
 
-All 100 standalone testbenches pass with ModelSim Intel FPGA Starter Edition
-2020.1 (VHDL-2008), recorded on 2026-10-11. See
+All 105 standalone testbenches pass with ModelSim Intel FPGA Starter Edition
+2020.1 (VHDL-2008), recorded on 2026-10-18. See
 [the verification record](verification/README.md). Tests include mathematical
 reference models, protocol scoreboards and directed boundary cases as appropriate
 to the block. This is not exhaustive verification of all parameter combinations.

@@ -1,4 +1,4 @@
-# 23.1.1 — Streaming CRC generator/checker
+# 24.1.1 — Streaming CRC generator/checker
 
 Updates a 16-bit remainder with one message bit on each enabled clock, each byte most significant bit first. The register holds the running CRC for a generator; once the appended CRC has also passed through, zero reports that the frame passes the CRC check.
 
@@ -74,7 +74,7 @@ end entity crc16_serial;
 
 ## Source traceability
 
-- Book identikit: **23.1.1**.
+- Book identikit: **24.1.1**.
 - Book source: `components/streaming-crc.tex`.
 - RTL SHA-256 (UTF-8, LF): `c5dcedcad6e5cb8eaef9c49a4a780f4ac3d2f2cb63ed42db00e11433d45b6bdd`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).

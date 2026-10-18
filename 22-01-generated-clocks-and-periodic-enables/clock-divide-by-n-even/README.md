@@ -1,4 +1,4 @@
-# 22.1.2 — Divide-by-N (even)
+# 23.1.2 — Divide-by-N (even)
 
 A phase counter toggles a registered output every DIV/2 non-reset source rising edges. For an even divisor, the settled output repeats every DIV source cycles with equal high and low durations.
 
@@ -67,7 +67,7 @@ end entity clock_divide_by_n_even;
 
 ## Source traceability
 
-- Book identikit: **22.1.2**.
+- Book identikit: **23.1.2**.
 - Book source: `components/clock-divide-by-n-even.tex`.
 - RTL SHA-256 (UTF-8, LF): `0a91b95ba23fde87c67fb1bcf5ab6682be1d39f43aa30cc8d4c551e33cb17c53`.
 - [Book manuscript](https://github.com/andrea-cpu96/FPGA-Digital-Blocks-Identikit).
