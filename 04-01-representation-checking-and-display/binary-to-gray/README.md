@@ -14,7 +14,7 @@ interface assumptions and design pitfalls.
 
 **Preserve the source sequence.** The one-bit-change property applies when the source visits adjacent values. A slower receiver may repeat an observation or skip source values, so successive synchronized samples need not differ by exactly one bit. Judge them against the protocol's allowed progress.
 
-**Define invalid simulation behavior.** The template warns and emits zeros for non-binary input. That is a deterministic simulation policy, not a guarantee about metastable hardware. A validity indication can be added when downstream logic must distinguish encoded zero from invalid input.
+**Define invalid simulation behavior.** The template reports non-binary input and produces zero, giving simulation a defined result. This does not describe how metastable hardware will behave. If downstream logic must distinguish a valid encoded zero from invalid input, add a validity indication.
 
 ## Files
 

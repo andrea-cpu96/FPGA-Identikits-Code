@@ -2,7 +2,7 @@
 
 Drives a bidirectional pad while output enable is asserted and otherwise releases the connection to high impedance. data_in continuously reports the resolved value on the pad, whether it is driven by the FPGA or by an external device.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **1.2 — Shared I/O**.
+Companion to *FPGA Identikits* by Andrea Fato, group **1.2 — Shared I/O and bus ownership**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -10,7 +10,7 @@ interface assumptions and design pitfalls.
 
 **Use tri-state only at the device boundary.** Contemporary FPGA fabrics normally do not contain internal tri-state routing. An internal `'Z'` description is either rejected or converted into multiplexing logic. Keep the `inout` port at the top level so the tool can map it to an I/O buffer.
 
-**Prevent bus contention.** Two enabled drivers that disagree resolve to `'X'` in simulation and can cause excessive current in hardware. The turnaround protocol must disable the current driver before enabling the next; include the pad, package, and remote-device delays when defining that dead time.
+**Prevent bus contention.** If two enabled drivers drive opposite values, simulation resolves the bus to `'X'` and hardware can draw excessive current. Prevent this by disabling the current driver before enabling the next. Allow enough time for the pad, package and remote-device delays when setting the turnaround interval.
 
 **Treat asynchronous input separately.** A released pad may float unless the board provides a pull device. When an external pad value is asynchronous to the receiving clock, synchronize it or use the protocol-specific CDC (see the book's CDC appendix) circuit before consuming it internally.
 

@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Check the inferred hardware.** Intentional latches are less common in FPGA designs than edge-triggered registers. Their implementation and timing can depend on the device and synthesis tool. Verify the inferred resource and timing paths in the synthesis and timing reports.
 
-**Closing the latch has timing.** The missing `else` intentionally holds `q` while `en` is low. Data must meet the latch's setup and hold requirements around the falling `en` transition that closes it; also constrain the path while the latch is transparent. An `else` assigning a non-feedback value removes the hold behavior; `q <= q` does not.
+**Meet setup and hold when the latch closes.** Omitting `else` deliberately makes the latch hold its value when `en` is low. Data must meet setup and hold around the falling `en` transition that closes the latch, and the transparent path also needs timing constraints. An `else` that assigns a new, non-feedback value removes storage; writing `q <= q` preserves it.
 
 ## Files
 

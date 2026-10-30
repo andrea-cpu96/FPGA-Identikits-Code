@@ -1,4 +1,4 @@
--- Self-checking tests for identikit 2.1.4: One-hot to binary.
+-- Self-checking tests for identikit 2.1.6: One-hot to binary.
 -- Each case instantiates only this identikit. Models use sampled inputs.
 -- Family stimulus/reference variables may be shared; only this DUT is checked.
 -- Functional RTL verification does not model analog metastability or routing.

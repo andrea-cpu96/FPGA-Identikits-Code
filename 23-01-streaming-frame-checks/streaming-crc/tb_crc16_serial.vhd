@@ -1,4 +1,4 @@
--- Self-checking tests for identikit 23.1.1: Streaming CRC generator/checker.
+-- Self-checking tests for identikit 24.1.1: Streaming CRC generator/checker.
 -- Each case instantiates only this identikit. Models use sampled inputs.
 -- Family stimulus/reference variables may be shared; only this DUT is checked.
 -- Functional RTL verification does not model analog metastability or routing.

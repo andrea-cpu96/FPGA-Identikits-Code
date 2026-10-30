@@ -10,9 +10,9 @@ interface assumptions and design pitfalls.
 
 **Extend before subtracting.** The leading zeros make a $(W+1)$-bit subtraction. The most-significant result bit then reveals unsigned underflow; subtracting only W bits would discard it. This block has no borrow-in input.
 
-**Do not confuse signed overflow.** Borrow is an unsigned relation. If the same operands are interpreted as signed, use a separate signed-overflow rule and sign extension.
+**Distinguish borrow from signed overflow.** Borrow is an unsigned relation. If the same operands are interpreted as signed, use a separate signed-overflow rule and sign extension.
 
-**Keep result and status together.** During input transitions the combinational difference and borrow may momentarily disagree because paths have different delays. Capture both at a clock edge when they must describe one transaction.
+**Keep result and status together.** The difference and borrow travel through paths with different delays, so they may briefly describe different input values during a transition. When a consumer needs the result of one transaction, capture both together after they have settled.
 
 **Make invalid data visible.** Strict binary validation warns and drives zero for unknown or weak simulation inputs. Zero is also a valid result; only the warning distinguishes this fallback in simulation. This policy is not a substitute for a coherent clock-domain transfer.
 

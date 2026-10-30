@@ -8,11 +8,11 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Trigger is an event convention, not an edge detector.** A high input reloads on every clock edge. For one trigger per rising transition of a held status level, use an upstream edge detector. Held-high trigger keeps the output active and postpones expiry until $L$ periods after its final high edge.
+**A high trigger reloads on each rising edge.** A high input reloads on every clock edge. For one trigger per rising transition of a held status level, use an upstream edge detector. Held-high trigger keeps the output active and postpones expiry until $L$ periods after its final high edge.
 
-**Overlapping events merge.** Retriggering preserves the active level, not the number of events. A rising-edge consumer sees one assertion across an extended interval. Event counting or queued delivery needs a different block.
+**Overlapping events merge.** Retriggering extends the current high interval without adding a new output transition. A consumer watching rising edges therefore sees one assertion even if several triggers arrived. Use an event counter or queue when every trigger must be recorded or delivered separately.
 
-**A timed level is not an action qualifier.** Same-clock logic sees the new output at its next sampling edge; an enable driven by `q` can authorize multiple actions. Time is $L/f_{\rm clk}$ only while the clock runs; reset may shorten the interval. This is not an asynchronous reset generator.
+**A timed level does not imply a single action.** Same-clock logic sees the new output at its next sampling edge. An enable driven by `q` authorizes an action on every edge where `q` is high. With a running clock and no retrigger or reset, the interval is $L/f_{\rm clk}$. This is not an asynchronous reset generator.
 
 **Stretching is not synchronization.** Trigger must already be synchronous. A narrow asynchronous input can be missed before stretching. Crossing the output needs a defined high/low capture contract or an event protocol; see Appendix C. No count of closely spaced events is guaranteed.
 

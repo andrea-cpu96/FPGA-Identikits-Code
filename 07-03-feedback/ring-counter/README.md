@@ -8,7 +8,7 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**One-hot is an invariant, not self-repair.** Rotation preserves the number of asserted bits. An all-zero or multi-hot corruption therefore keeps circulating until reset or explicit recovery logic restores a legal seed.
+**One-hot is an invariant, not self-repair.** Rotation moves the bits without changing how many are high. If the state becomes all zero or contains several high bits, rotating it cannot restore one-hot operation. Reset or explicit recovery logic must load a legal seed again.
 
 **Startup is not reset.** No initial value is declared. Simulation begins with unknown bits and hardware power-up is device-dependent; apply reset through a rising edge before using the phase outputs.
 
@@ -16,7 +16,7 @@ interface assumptions and design pitfalls.
 
 **Registered outputs avoid a decoder.** Each phase is a stored bit, so a separate binary-to-one-hot decoder is unnecessary. Physical clock-to-output skew still exists; do not treat the vector as an asynchronous hazard-free bus.
 
-**Preserve the orientation.** This template calls the operation rotate right because bit 0 wraps into `N-1`. Reversing the vector convention reverses the visible phase order without changing the state count.
+**Define rotation by bit index.** This template calls the operation rotate right because bit 0 wraps into `N-1`. Reversing the vector convention reverses the visible phase order without changing the state count.
 
 ## Files
 

@@ -2,7 +2,7 @@
 
 A phase counter toggles a registered output every DIV/2 non-reset source rising edges. For an even divisor, the settled output repeats every DIV source cycles with equal high and low durations.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **22.1 — Generated clocks and periodic enables**.
+Companion to *FPGA Identikits* by Andrea Fato, group **23.1 — Generated clocks and periodic enables**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -10,9 +10,9 @@ interface assumptions and design pitfalls.
 
 **Reject unsupported divisors.** The exact 50% waveform requires an even `DIV` of at least 2. The assertion catches odd values in simulation; check generic legality and synthesis messages in the target flow. An odd integer divisor needs alternating half-period lengths and cannot have equal high and low durations using only source rising edges.
 
-**Reset and phase.** A reset edge clears both counter and output. The first output transition follows `DIV/2` non-reset source rising edges. `DIV` is fixed at elaboration; run-time changes require a separate safe phase-update policy.
+**Reset fixes the starting phase.** A reset edge clears the counter and output, establishing the phase origin. The first output transition then occurs after `DIV/2` non-reset source edges. Since `DIV` is fixed during elaboration, changing the rate during operation would require a different design with a defined phase-update policy.
 
-**Treat the output as a real clock if used as one.** Its source is a fabric register, not automatically a dedicated clock resource. Define a generated clock and examine routing, skew, timing, and any crossings before placing register clock pins on this net.
+**Constrain and route the divided clock.** Its source is a fabric register, not automatically a dedicated clock resource. Define a generated clock and examine routing, skew, timing, and any crossings before placing register clock pins on this net.
 
 **Prefer a same-clock enable when possible.** A periodic enable leaves all downstream registers on `clk`. It avoids a second clock network, although it has its own registered-tick observation convention. Only binary reset values are within this template's intended contract.
 

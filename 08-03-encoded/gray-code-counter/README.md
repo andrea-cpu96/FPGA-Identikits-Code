@@ -10,13 +10,13 @@ interface assumptions and design pitfalls.
 
 **Gray code reduces ambiguity; it is not a synchronizer.** For a CDC (see the book's CDC appendix) pointer, the source Gray value must be registered, every bit must pass through destination-domain synchronizers, and timing constraints must prevent skew from mixing successive source updates at the destination. Choose delay/skew limits for the source update rate and CDC implementation; verify them after routing.
 
-**Reset is an exception to adjacency.** Resetting an arbitrary count to zero can change several Gray bits. Coordinate reset and pointer-valid policy across domains instead of treating it as a count step.
+**Reset is an exception to adjacency.** Resetting an arbitrary count to zero can change several Gray bits, so it is not an ordinary count step. Coordinate reset and pointer validity across domains.
 
 **Do not perform ordinary arithmetic on Gray values.** Convert a coherent Gray sample back to binary before subtraction, range tests, or occupancy calculation.
 
 **Reset must meet timing.** Synchronous `rst` must meet setup and hold requirements at `clk`.
 
-**Recheck a modified sequence.** Dropping bits can repeat codes and lose count information; it cannot increase the number of changed bits between adjacent source codes. Changing the count modulus can introduce a multi-bit wrap. Keep the full sequence, or verify every transition, including wrap, and the intended CDC use.
+**Recheck a modified sequence.** Discarding bits can make different counts look identical, although it cannot increase how many bits change between adjacent source codes. Changing the modulus can also introduce a multi-bit wrap. If you alter the sequence, check every transition, including wrap, against the intended CDC use.
 
 ## Files
 

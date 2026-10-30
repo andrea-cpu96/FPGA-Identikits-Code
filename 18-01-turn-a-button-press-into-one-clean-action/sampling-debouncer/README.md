@@ -2,7 +2,7 @@
 
 Synchronizes a single asynchronous input and shifts one observation into a K-bit history at every rising edge. An all-one history sets the accepted level; an all-zero history clears it. Mixed history holds the previous level.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **18.1 — Turn a button press into one clean action**.
+Companion to *FPGA Identikits* by Andrea Fato, group **19.1 — Turn a button press into one clean action**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Account for storage cost.** History needs K bits plus decode logic; a counter needs roughly logarithmic storage for the same threshold. Long mechanical debounce intervals usually favor the counter. A mixed window holds the output; this is unanimity, not majority voting.
 
-**Respect the old-history timing.** Both assignments read pre-edge signals. A qualifying run can be reported after its last sample has passed. Decoding a next-history variable instead would remove one cycle but change this documented contract. The accepted output is a level, not a pulse.
+**Allow one cycle to decode the history.** Both assignments use the history from before the clock edge. The filter therefore reports a qualifying run after its final sample has entered the history. Decoding a next-history variable could remove one cycle, but would change this timing convention. The accepted output remains a level rather than an event pulse.
 
 **Verify startup and CDC .** Initial values require target support; no run-time reset is supplied. Preserve and place the two synchronizer stages using vendor guidance and check metastability reliability. Sampled agreement does not prove analog stability, and this filter has no invalid-input diagnostic.
 

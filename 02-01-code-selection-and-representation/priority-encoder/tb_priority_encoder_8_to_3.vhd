@@ -1,4 +1,4 @@
--- Self-checking tests for identikit 2.1.3: Priority encoder.
+-- Self-checking tests for identikit 2.1.4: Priority encoder.
 -- Each case instantiates only this identikit. Models use sampled inputs.
 -- Family stimulus/reference variables may be shared; only this DUT is checked.
 -- Functional RTL verification does not model analog metastability or routing.

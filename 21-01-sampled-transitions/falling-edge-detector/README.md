@@ -2,15 +2,15 @@
 
 Compares the current clock-domain input with its previous sample. A 1-to-0 change raises a registered pulse for one complete clock period; unchanged or rising samples leave it low.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **21.1 — Sampled transitions**.
+Companion to *FPGA Identikits* by Andrea Fato, group **22.1 — Sampled transitions**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Present a clock-domain level.** This is not a synchronizer. An asynchronous input can violate sampling timing and make behavior uncertain. Synchronize a persistent external level first; debounce a contact before converting its accepted change into a pulse.
+**Synchronize asynchronous inputs first.** The detector assumes its input already meets the local clock timing. An asynchronous input can violate that assumption, so first synchronize a persistent external level. For a mechanical contact, also debounce the synchronized level before converting accepted changes into pulses.
 
-**Mind missed changes.** A high-low-high excursion entirely between clock edges cannot be detected. This output reports sampled history, not every physical transition on the pin.
+**Changes between edges can be missed.** A high-low-high excursion entirely between clock edges cannot be detected. This output reports sampled history, not every physical transition on the pin.
 
 **Control startup.** The zero initialization is part of this template's contract and must be supported by the FPGA flow. A reset can establish a known zero baseline; if the first sample must not be compared, capture it while detection is disabled instead.
 

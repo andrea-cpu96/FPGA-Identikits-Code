@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Make the compared field explicit.** Match widths at the interface and slice packed buses deliberately. Accidental padding, truncation, or comparing reserved bits can produce a logically correct result for the wrong field.
 
-**Budget and qualify the result.** A wide equality test becomes many bit comparisons followed by a reduction. Operand transitions can also create a brief match before the result settles. Do not use raw `eq` as a clock, asynchronous reset, or event pulse. Register it when a stable, timing-qualified condition is required and the surrounding latency contract permits it.
+**Allow for comparison delay and glitches.** A wide equality test combines many bit comparisons, so allow for its propagation delay. While operands change, the output can briefly indicate a match. For that reason, do not use raw `eq` as a clock, asynchronous reset or event pulse. Register it when a stable condition is needed, allowing for the added latency.
 
 **Equality is not synchronization.** Comparing asynchronous words does not make them coherent. Synchronize control flags or transfer multi-bit data with a suitable CDC (see the book's CDC appendix) protocol before relying on the result in another clock domain.
 

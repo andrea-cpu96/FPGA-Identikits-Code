@@ -2,19 +2,19 @@
 
 Registers one stream word and its valid flag between a producer and a consumer. It accepts a new word whenever it is empty or its word is being taken in the same cycle, so it sustains one word per clock and holds its output during a stall.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **20.1 — Ready/valid buffering**.
+Companion to *FPGA Identikits* by Andrea Fato, group **21.1 — Ready/valid buffering**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**The ready path is combinational.** `in_ready` follows `out_ready` through one gate, so chained stages form one long ready path. The timing-isolating skid buffer (20.1.2) adds a spare entry and readiness derived from registered state.
+**The ready path is combinational.** `in_ready` follows `out_ready` through one gate, so chained stages form one long ready path. The timing-isolating skid buffer (21.1.2) adds a spare entry and readiness derived from registered state.
 
-**Keep the handshake rules.** Upstream holds `in_valid` and `in_data` until accepted and never derives `in_valid` from `in_ready`. The stage holds its output the same way.
+**Keep the handshake rules.** Offer a word with `in_valid`, holding valid and data until accepted. Do not wait for ready before asserting valid: both ends could wait forever. The stage likewise holds its output until accepted.
 
 **Keep `in_valid` low during reset.** Reset clears only the valid flag. `in_ready` can read high while `rst` is held, but the reset branch takes nothing, so an offered word would be lost.
 
-**Allow for occupancy.** Minimum transfer latency is one cycle; a stall can retain a word indefinitely. Backpressure propagates through full stages with gate delay. An empty stage absorbs one word even if `out_ready=0`.
+**Account for stalls and buffering.** Minimum transfer latency is one cycle; a stall can retain a word indefinitely. Backpressure propagates through full stages with gate delay. An empty stage absorbs one word even if `out_ready=0`.
 
 ## Files
 

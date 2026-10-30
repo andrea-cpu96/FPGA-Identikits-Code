@@ -10,9 +10,9 @@ interface assumptions and design pitfalls.
 
 **Keep the bit order explicit.** This template maps the numeric code directly to the output subscript: code zero selects `y(0)` and code seven selects `y(7)`. Reversing the external wiring changes the apparent numbering even though the VHDL remains type-correct.
 
-**A combinational decode can glitch.** Several select bits may change at slightly different times in hardware, briefly activating an intermediate decode. Do not use ordinary decoder RTL as a glitchless clock, reset, or asynchronous strobe source. Register the result or constrain the receiving protocol when hazards matter.
+**A combinational decode can glitch.** Several select bits may change at slightly different times in hardware, briefly activating an intermediate decode. Do not use ordinary decoder RTL as a glitchless clock, reset, or asynchronous strobe source. When hazards matter, register the result or require the receiving protocol to sample only after the outputs settle.
 
-**The fallback is a simulation policy.** The assertion exposes invalid control; the fallback only defines the simulated output. Neither can make a metastable hardware input safe. Apply the appropriate CDC (see the book's CDC appendix) scheme before decoding an asynchronous multi-bit value.
+**The fallback is a simulation policy.** The assertion reports an invalid control value, while the fallback defines the output shown in simulation. Neither protects a physical input from metastability. Before decoding an asynchronous word, transfer it coherently with an appropriate CDC (see the book's CDC appendix) scheme.
 
 ## Files
 

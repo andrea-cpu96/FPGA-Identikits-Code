@@ -8,11 +8,11 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Load is an edge-sampled enable.** It controls whether the register captures `d`; it is not a second clock. `d`, `load`, and synchronous `rst` must meet setup and hold requirements at `clk`. Do not build an ordinary logic gate into the clock path to reproduce this behavior.
+**Load is an edge-sampled enable.** `load` controls whether the register captures `d`; it is not a second clock. `d`, `load`, and synchronous `rst` must meet setup and hold requirements at `clk`. Do not build an ordinary logic gate into the clock path to reproduce this behavior.
 
 **Startup is not reset.** No initial value is declared. Simulation begins with `'U'` bits and hardware power-up is device-dependent until a known reset or enabled load establishes the word.
 
-**Parallel capture is not word synchronization.** All bits are stored at one local edge, but an asynchronous multi-bit source may still be incoherent or metastable. Transfer such words with a suitable handshake, FIFO, or other clock-domain-crossing protocol.
+**Parallel capture is not word synchronization.** Capturing all bits at one local edge does not guarantee a coherent word if the source is asynchronous: bits can be sampled from different updates or become metastable. Transfer such words through a suitable handshake, FIFO or other clock-domain-crossing protocol before using them.
 
 **Expect a register bank.** This form normally infers N flip-flops with a shared load condition, mapped through clock enables or input multiplexers as the target permits. Reset priority and device resources affect the result, so inspect synthesis when timing, fanout, or area matters.
 

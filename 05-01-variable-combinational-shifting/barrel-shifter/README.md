@@ -8,11 +8,11 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Expect a routing network.** A variable rotation normally infers a multistage multiplexer network rather than free wiring. Area and delay grow with width and with the number of selectable amounts. A constant amount, by contrast, usually collapses to rewiring.
+**Allow for rotation area and delay.** A variable rotation normally infers a multistage multiplexer network rather than free wiring. Area and delay grow with width and with the number of selectable amounts. A constant amount, by contrast, usually collapses to rewiring.
 
-**Make the operation explicit.** ``Barrel shifter'' describes an architecture, not a fill rule. State direction and choose rotate, logical shift, or arithmetic shift deliberately; substituting one silently changes the numerical meaning.
+**Make the operation explicit.** The term ``barrel shifter'' describes how an operation is implemented, but does not specify which bits fill the vacated positions. State the direction and whether the operation rotates, inserts zeros or extends the sign. These choices give the same input word different numerical meanings.
 
-**Constrain the amount.** Every value admitted by this VHDL subtype has a defined meaning. Assigning an out-of-range value violates the simulation contract; it does not invoke the zero-data fallback. A vector-coded wrapper must validate meta-values and unused codes before numeric conversion, then reject, clamp, or reduce them modulo `W` as specified.
+**Constrain the amount.** Every value admitted by this VHDL subtype has a defined meaning. Assigning a value outside the subtype causes a bounds error in simulation; it does not invoke the zero-data fallback. A vector-coded wrapper must validate meta-values and unused codes before numeric conversion, then reject, clamp, or reduce them modulo `W` as specified.
 
 **Register long paths when needed.** Both data and amount feed a wide combinational network and may produce transients while changing. Use only the settled result, and pipeline it when delay exceeds the timing budget. The deterministic simulation fallback does not make asynchronous or metastable data and amount controls safe; establish a coherent transfer first.
 

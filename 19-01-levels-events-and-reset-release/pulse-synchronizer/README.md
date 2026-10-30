@@ -2,7 +2,7 @@
 
 Turns each accepted source-clock event into a change of a stored bit. The destination synchronizes that bit and compares it with its previous synchronized value. An isolated change produces a one-destination-cycle pulse.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **19.1 — Levels, events, and reset release**.
+Companion to *FPGA Identikits* by Andrea Fato, group **20.1 — Levels, events, and reset release**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Specify the event-spacing budget.** Base the minimum spacing on the destination-clock period and synchronization uncertainty, with margin. Allow several destination periods between source events; RTL alone supplies no universal lossless rate. Use a handshake or FIFO if spacing cannot be guaranteed, or if the destination clock can stop while events arrive.
 
-**One high source edge means one event.** Holding `pulse_in` high toggles on every source edge. This is not a source edge detector. Closely spaced observed toggles can also make adjacent output-high cycles merge into a longer level rather than separated pulses.
+**One high source edge means one event.** Each source edge with `pulse_in` high toggles the stored bit. A held-high input therefore represents repeated events rather than one rising transition. At the destination, events detected on adjacent cycles can keep the output high continuously, without a low gap between pulses.
 
 **Use the pulse synchronously.** The output XOR is combinational. Transitions on its two inputs can produce physical glitches; do not use it as a clock or asynchronous control. Only stages 0 and 1 form the resolving chain; stage 2 stores the previous synchronized value for event detection.
 
-**Preserve CDC and initialization.** Apply synchronizer attributes, placement, and timing constraints in the destination domain. Keep its stage-to-stage path timed. Unmatched initialization or resetting one side alone can invent or lose an event. The template has no run-time recovery protocol and no diagnostic for invalid source controls.
+**Preserve synchronizer timing and startup.** Apply synchronizer attributes, placement, and timing constraints in the destination domain. Keep its stage-to-stage path timed. Unmatched initialization or resetting one side alone can invent or lose an event. The template has no run-time recovery protocol and no diagnostic for invalid source controls.
 
 ## Files
 

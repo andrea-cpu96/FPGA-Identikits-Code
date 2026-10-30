@@ -2,7 +2,7 @@
 
 A modulo-DIV counter asserts a registered tick when it wraps. The enable repeats every DIV source-clock cycles while all receiving registers remain on the original clk.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **22.1 — Generated clocks and periodic enables**.
+Companion to *FPGA Identikits* by Andrea Fato, group **23.1 — Generated clocks and periodic enables**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Use tick as an enable.** A consumer tests `tick` within its `rising_edge(clk)` process. Do not wire it to a clock input: that would defeat the single-domain purpose and create a new timing problem.
 
-**Account for the registered phase.** Other clocked processes read the old tick value at an edge, not the value scheduled by this process on that edge. Align data and state to the receiving edge. A combinational terminal decode would have different phase and glitch considerations.
+**Allow for next-edge tick sampling.** Other clocked processes read the old tick value at an edge, not the value scheduled by this process on that edge. Align data and state to the receiving edge. A combinational terminal decode would have different phase and glitch considerations.
 
 **Reset establishes the interval.** A reset edge clears count and tick; the first high tick follows `DIV` non-reset source rising edges. A separate consumer can still read the *pre-edge* high tick at that reset edge. Give the consumer's own reset or inhibit condition priority if reset must suppress its action. Only binary reset levels are intended.
 
-**Distinguish rate from protocol phase.** This free-running form has no enable gate or phase preload. A UART start-bit sampler or similar protocol may require a tick aligned to an external event. Use a separately specified baud-rate generator for that contract.
+**Distinguish rate from protocol phase.** This generator runs freely from its reset origin and has neither an enable gate nor a phase preload. A protocol such as UART reception may instead need sampling ticks aligned to a detected start bit. Use a generator with an explicitly defined restart or alignment behavior for that purpose.
 
 ## Files
 

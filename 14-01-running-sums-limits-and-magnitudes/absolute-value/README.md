@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Widen before taking the magnitude.** An N-bit signed value cannot represent $+2^{N-1}$. Sign-extend the input first, then apply `abs` at N+1 bits. Applying `abs` in N bits and widening afterward preserves the already-overflowed result for the most-negative input.
 
-**Keep the output unsigned.** Dropping the widened result's top bit is exact here because it is zero for every binary input. The remaining N bits hold a magnitude, not a signed result. A downstream signed interface needs N+1 bits, or an explicit saturation policy at $2^{N-1}-1$.
+**Keep the output unsigned.** Dropping the widened result's top bit is exact here because it is zero for every binary input. The remaining N bits hold an unsigned magnitude, not a signed result. A downstream signed interface needs N+1 bits, or an explicit saturation policy at $2^{N-1}-1$.
 
-**Avoid stale intermediate values.** Signal assignments update after a process suspends. A process sensitive only to a that writes an intermediate and immediately reads it uses the old value, without waking when it changes. Use concurrent assignments as below, or variables in one complete process.
+**Avoid stale intermediate values.** A signal assignment takes effect after the process suspends. If a process sensitive only to `a` writes an intermediate signal and then reads it, it reads the old value; the later update will not wake that process again. Use the concurrent assignments shown below, or variables within one complete process, so each calculation uses the intended intermediate value.
 
-**Magnitude is not validation.** Non-binary inputs follow `numeric_std` handling; this block has no custom fallback or valid flag. Changes to several input bits can cause glitches before settling. Register or otherwise sample the result with appropriate timing constraints.
+**Check input validity and settling.** Non-binary inputs follow `numeric_std` handling; this block has no custom fallback or valid flag. Changes to several input bits can cause glitches before settling. Register or otherwise sample the result with appropriate timing constraints.
 
 ## Files
 

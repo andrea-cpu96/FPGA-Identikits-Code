@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Use numeric comparisons.** Explicit zero and all-ones limits make the unsigned contract visible and avoid accidental signed tests.
 
-**Treat controls as synchronous.** `rst`, `en`, and `dir` must meet setup and hold requirements at `clk`. Synchronizing independent event pulses can also lose their ordering; use a proper event-transfer protocol across domains.
+**Treat controls as synchronous.** `rst`, `en`, and `dir` must meet setup and hold requirements at `clk`. Synchronizing up and down event pulses independently can lose their relative order; use a proper event-transfer protocol across domains.
 
-**Boundary flags need a convention.** A level flag says the counter is at a limit; a pulse says an attempted crossing occurred. They are not interchangeable.
+**Boundary flags need a convention.** A flag that stays high at a limit answers a different question from a pulse reporting an attempted crossing. Decide whether the consumer needs to know the current position or a rejected event, and define the flag accordingly.
 
 ## Files
 

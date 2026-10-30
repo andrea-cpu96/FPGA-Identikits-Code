@@ -8,11 +8,11 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Count transfers, not requests.** Reset blocks both transfers; otherwise, full blocks writes and empty blocks reads. Retain rejected input words. A same-clock consumer qualifies dout with the previous edge's read acceptance, not the current empty flag. Queue status is not output validity.
+**Count transfers, not requests.** Full rejects writes, so retain the offered word; empty rejects reads, and reset blocks both. Qualify registered `dout` with the previous edge's accepted read. The current empty flag describes queued words, not output validity.
 
 **Reset invalidates data logically.** Reset returns pointers and count to zero, making old storage unreachable as queued data. It does not erase memory or clear dout. Sample reset before use if the target does not guarantee the declared control-state initialization.
 
-**Keep the clock-domain contract.** All requests and input data must meet the same clock's timing. This FIFO is not a synchronizer. Use binary controls; only literal `'1'` requests a transfer, with no custom invalid-value diagnostic.
+**Use one clock domain for all transfers.** All requests and input data must meet the same clock's timing. This FIFO is not a synchronizer. Use binary controls; only literal `'1'` requests a transfer, with no custom invalid-value diagnostic.
 
 **Check resource mapping.** Power-of-two pointers wrap naturally; the extra count bit distinguishes full from empty. Choose a depth that fits the integer range and device. The template does not reset storage, but actual RAM inference and timing still depend on the target and synthesis tool.
 

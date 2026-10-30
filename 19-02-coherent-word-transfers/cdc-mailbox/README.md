@@ -2,19 +2,19 @@
 
 Accepts a word in the source domain, holds it stable, and signals a toggle request. The destination loads the held word, presents it with dst_valid, and returns an acknowledgement once it is consumed. Only one word is in flight at a time.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **19.2 — Coherent word transfers**.
+Companion to *FPGA Identikits* by Andrea Fato, group **20.2 — Coherent word transfers**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Constrain the held-data path.** Time `data_reg` to `dst_data`: R1--R3 gives two destination periods before setup, uncertainty, and margin. A one-period bound is an example to verify. Section C.6 covers constraints and exception precedence.
+**Constrain the held-data path.** The held word must reach `dst_data` before capture. R1--R3 allows two destination periods, less setup, uncertainty and margin. A one-period path limit is one possible budget; verify yours in Section C.6.
 
 **Reset both domains together.** Each reset discards a word in flight. Resetting one side alone can lose or invent a transfer. With both clocks running, keep resets overlapping until each domain has sampled its reset.
 
 **Treat each side as ready/valid.** A transfer occurs at an edge where valid and ready are both high. `src_ready` may read high during `rst_src`, when nothing is accepted; hold the producer in reset too.
 
-**Mark the resolving stages.** Only `req_sync` and `ack_sync` resolve metastability; give them synchronizer attributes and timed stage-to-stage paths. Use an asynchronous FIFO for streams.
+**Mark the metastability synchronizers.** Only `req_sync` and `ack_sync` resolve metastability; give them synchronizer attributes and timed stage-to-stage paths. Use an asynchronous FIFO for streams.
 
 ## Files
 

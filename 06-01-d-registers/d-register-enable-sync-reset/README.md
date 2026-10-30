@@ -8,11 +8,11 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Enable is sampled at the edge.** `en` is a clock-enable, not a level gate: it does not stop the clock, it stops the capture. An enable must persist to and meet timing at a sampling edge; a pulse wholly between edges can be missed. Do not gate `clk` itself in ordinary logic; this block is the correct construct.
+**Enable is sampled at the edge.** `en` controls whether the register captures data; the clock continues running. The enable must be present and meet timing at the sampling edge, so a pulse entirely between edges can be missed. Use this clock-enable form rather than gating `clk` with ordinary logic.
 
 **Constrain data and controls.** `d`, `en`, and synchronous `rst` must meet setup and hold at `clk`. The enabled path still needs normal register-to-register timing analysis; an inactive enable does not make a late data path safe for the next capture.
 
-**Reset bypasses the enable.** `rst` clears `q` even when the enable is low. This is the chosen priority of this template, not a requirement that every enabled datapath register have reset. Keep the priority order reset $>$ enable $>$ data explicit in the code so the intent survives synthesis.
+**Reset bypasses the enable.** `rst` clears `q` even when the enable is low. This is the chosen priority of this template, not a requirement that every enabled datapath register have reset. Keep the priority order reset $>$ enable $>$ data explicit in the code so synthesis implements the intended behavior.
 
 ## Files
 

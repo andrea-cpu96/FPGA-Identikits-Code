@@ -10,9 +10,9 @@ interface assumptions and design pitfalls.
 
 **Know what parity detects.** Starting from a valid frame, any odd number of changed positions across the protected payload and its parity bit is detected. Any even number preserves the parity relation and is not detected. Parity gives neither the damaged position nor a correction value; use a stronger code when the system needs those properties.
 
-**Protect the intended word.** Here `data` is the payload only; `parity_in` is its separate accompanying parity bit. Headers and padding may be included in a system's payload convention, but both ends must use exactly the same protected field.
+**Protect the intended word.** The sender and receiver must protect the same bits. Decide whether headers and padding belong in `data`; supply the separate parity bit through `parity_in`. Otherwise, the receiver checks a different word.
 
-**Treat `error` as a condition.** The flag reports the present XOR relation after combinational settling. Input skew can create short pulses, so do not use it as a clock or asynchronous reset. Register it with the received word when a timing-qualified indication is required.
+**Sample the error flag with the word.** The `error` flag reports the current XOR relation after combinational settling. Input skew can create short pulses, so do not use it as a clock or asynchronous reset. Register it with the received word when a timing-qualified indication is required.
 
 **Parity is not a CDC protocol.** A parity bit can expose some incoherent captures but cannot make an asynchronous bus safe. Transfer data and parity together with an appropriate handshake, FIFO, or source-synchronous scheme.
 

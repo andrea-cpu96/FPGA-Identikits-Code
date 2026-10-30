@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Prove the value fits the width.** The template asserts `MOD_VAL <= 2**N`; otherwise the terminal code cannot be represented. The upper bound on `N` keeps that elaboration expression within the minimum VHDL integer range.
 
-**Define illegal-state recovery.** If a fault places the state above the terminal value, equality-only logic would pass through further illegal codes until natural binary overflow. The template uses `>=` for immediate next-edge recovery. Simulation metavalues remain a separate diagnostic case.
+**Define illegal-state recovery.** If a fault puts the count above the terminal value, an equality-only test will miss it and counting will continue until binary overflow. This template uses `>=`, so the next active edge restores zero. Unknown simulation values still require separate diagnosis.
 
 **Reset must meet timing.** Synchronous `rst` must meet setup and hold requirements at `clk`.
 
-**The period is measured in edges.** From one zero state to the next are exactly `MOD_VAL` rising edges. A terminal decode and a registered tick may differ by one cycle; state the observation convention.
+**The period is measured in edges.** During normal counting with reset inactive, exactly `MOD_VAL` rising edges separate successive zero states. A terminal decode and a registered tick may differ by one cycle; state the observation convention.
 
 **Prefer an enable to a derived clock.** Use the wrap event as a one-cycle enable for same-clock logic, not as a fabric-generated clock.
 

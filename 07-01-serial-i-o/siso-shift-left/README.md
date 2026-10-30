@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Startup is not reset.** No initial state is declared, so simulation starts with `'U'` stages and hardware power-up is device-dependent. A synchronous reset clears the chain only when sampled at a rising edge; without reset, N known captures are needed to replace all startup values.
 
-**Observe the correct side of the edge.** A same-clock downstream register samples the pre-edge value of `dout`; it captures $b$ at the edge after $b$ first appears at the output. For `N=1`, the newly captured input is visible immediately after the current edge.
+**The receiver samples the pre-edge output.** A downstream register on the same clock samples the value of `dout` that existed before the edge. It therefore captures bit $b$ one edge after $b$ first appears at the output. Even for `N=1`, where the input appears just after its capture edge, the downstream register must wait for the next edge.
 
-**Check implementation mapping.** Dedicated shift-register resources are device- and tool-dependent and may not support the requested reset. Inspect the synthesized result. An asynchronous `din` still needs an appropriate synchronizer or receiver before reliable shifting.
+**Check implementation mapping.** Dedicated shift-register resources are device- and tool-dependent and may not support the requested reset, so inspect the synthesized result. An asynchronous `din` still needs an appropriate synchronizer or receiver before reliable shifting.
 
 ## Files
 

@@ -16,7 +16,7 @@ interface assumptions and design pitfalls.
 
 **Startup is not reset.** No declaration-time value is used. Simulation starts unknown and hardware power-up is device-dependent; sample reset at a rising edge before consuming the sequence.
 
-**Pseudorandom is not secure random.** An LFSR is linear, deterministic, and recoverable from enough output. Use it for test, coding, and pattern generation, not for secrets or cryptographic randomness.
+**Pseudorandom is not secure random.** An LFSR produces a deterministic sequence with a linear recurrence. Observing enough output bits can reveal its state and allow later bits to be predicted. It is useful for testing, coding and pattern generation, but not for secrets or cryptographic randomness.
 
 ## Files
 

@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Budget the sum, not just one term.** To sum M nonnegative terms no larger than D without wrapping, choose $2^N>MD$. Increasing the input width alone does not provide headroom. A wider accumulator needs a wider state register and an explicit extension of the input before addition.
 
-**Count accepted terms.** Enable is a level sampled at every edge. Leaving it high adds the input again on each clock, even if the input has not changed. Reset starts a new sum and discards any simultaneous term; there is no automatic batch length or result-valid flag.
+**Count accepted terms.** Each enabled edge adds one term, even if the input has not changed since the previous edge. Keep track of the accepted terms externally because the block supplies neither a batch length nor a result-valid flag. Reset starts a new sum and takes priority over a term offered on the same edge.
 
 **Reset is not power-up.** Simulation starts with unknown state; hardware startup depends on the target. Reset must be sampled at a rising edge. A pulse entirely between edges is ignored. Use synchronous controls and coherent data; this register is not a clock-domain crossing solution.
 
-**Protect the feedback path.** The addition must fit within one clock period. Unknown enabled data can contaminate the sum until reset; there is no custom fallback. Only literal `'1'` activates reset or enable, and non-binary controls are not diagnosed by this template.
+**Check feedback timing and data.** The addition must fit within one clock period. Unknown enabled data can contaminate the sum until reset; there is no custom fallback. Only literal `'1'` activates reset or enable, and non-binary controls are not diagnosed by this template.
 
 ## Files
 

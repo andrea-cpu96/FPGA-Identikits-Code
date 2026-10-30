@@ -8,9 +8,9 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Signal assignments use old values.** The multiply reads the operand registers from before the edge, not the inputs being captured at that edge. There are two register banks around the multiplier; the internal latency from operand capture to result update is one clock period. Use that edge contract to align transactions without an off-by-one error.
+**Signal assignments use old values.** At each edge, the multiply uses the operand-register values from before that edge, while those registers capture the next pair. A pair captured at edge $k$ therefore updates the result at edge $k+1$: one clock period later, through two register banks. Use these named edges when aligning transaction flags.
 
-**Qualify startup externally.** No initializer or reset is provided. The first result is unknown in simulation; a binary pair reaches the output after the second edge. Delay any valid flag or transaction tag by the same one clock period. There is no mechanism to stall this pipeline.
+**Mark valid results with a matching pipeline.** No initializer or reset is provided. The first result is unknown in simulation; a binary pair reaches the output after the second edge. Pass an input valid flag or transaction tag through two matching register stages. There is no mechanism to stall this pipeline.
 
 **Check resource mapping and timing.** Input and output registers can help DSP inference, but do not guarantee it. The complete multiply still lies between two register banks. Wide operands may require more pipeline stages or vendor IP to meet timing; inspect synthesis and timing reports.
 

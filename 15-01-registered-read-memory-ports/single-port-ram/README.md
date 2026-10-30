@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Preserve the memory inference pattern.** A registered read can map to block RAM, but capacity, port mode, and tool support determine the result. Resetting every array element can prevent RAM inference. Initialize through writes or use a supported initialization facility when required.
 
-**Address validity is a contract.** All binary address codes are legal for this power-of-two depth. Choose `ADDR_W` so the depth fits the VHDL integer range and the target resources. Non-binary addresses are invalid; numeric conversion warnings or coercions are not a protection mechanism.
+**Use binary addresses within capacity limits.** All binary address codes are legal for this power-of-two depth. Choose `ADDR_W` so the depth fits the VHDL integer range and the target resources. Non-binary addresses are invalid; numeric conversion warnings or coercions are not a protection mechanism.
 
-**Verify read-during-write mode.** The RTL is read-first, not write-first or no-change. Confirm the same mode after synthesis. Inputs must meet timing; `we` is not a read enable. The output samples a word on every rising edge.
+**Verify read-during-write mode.** A write returns the old contents of the addressed word: this is read-first behavior. Confirm that synthesis preserves it rather than selecting write-first or no-change mode. The port also reads on every rising edge, independently of `we`, so the address must meet timing even when no write is requested.
 
 ## Files
 

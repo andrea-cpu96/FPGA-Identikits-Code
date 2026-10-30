@@ -14,7 +14,7 @@ interface assumptions and design pitfalls.
 
 **Synchronize external inputs first.** An asynchronous `x` can violate timing at the state register and can also propagate directly to `y`. Synchronize or handshake it before the FSM; synchronization does not by itself make the combinational output glitch-free.
 
-**Define reset-time outputs.** Reset changes state only at an active edge; outputs remain combinational. Verify the reset-state decode for every input through reset entry and release.
+**Define reset-time outputs.** Reset updates the state only at an active edge, while the outputs continue to follow their combinational equations. Check how every input affects the reset-state output, both when entering reset and when leaving it.
 
 **Constrain the sampled controls.** Synchronous `rst` and the transition input `x` must meet setup and hold requirements at `clk`.
 

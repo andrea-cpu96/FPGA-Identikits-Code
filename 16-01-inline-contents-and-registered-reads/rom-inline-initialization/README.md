@@ -10,7 +10,7 @@ interface assumptions and design pitfalls.
 
 **Table initialization is not output reset.** The constant has defined contents, but `dout` has no initializer or reset. Simulation starts with `'U'` on the output until the first rising edge reads a valid address. Hardware register startup is target-dependent; qualify the first result.
 
-**Cover every location.** The `others` association initializes the remaining table entries, here addresses 6 and 7. It is not a fallback for an invalid address. If dimensions change, update the array, address range, word width, and contents consistently.
+**Cover every location.** The `others` association supplies contents for table locations not listed individually: addresses 6 and 7 here. It does not catch an invalid address. When changing the ROM dimensions, update the array bounds, address range, word width and contents together.
 
 **Do not promise a block ROM.** A constant table plus an output register may map to block memory, distributed resources, or ordinary logic. This 64-bit example is small enough that dedicated block memory may be wasteful. Inspect synthesis reports instead of inferring the resource from RTL syntax.
 

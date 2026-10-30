@@ -1,6 +1,6 @@
 # 9.2.1 — Free-running tick generator
 
-Counts clock edges modulo TIMEOUT. Its registered tick marks each expiry while all logic keeps the source clock.
+Counts clock edges modulo TIMEOUT. Its registered tick marks each expiry while all logic remains clocked by the source clock.
 
 Companion to *FPGA Identikits* by Andrea Fato, group **9.2 — Periodic Events & Waveforms**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
@@ -16,9 +16,9 @@ interface assumptions and design pitfalls.
 
 **Reset defines phase.** Instances on the same source clock, with the same period and reset-release edge, align their pulses. Different periods share a phase origin but have different pulse schedules.
 
-**Account for same-clock sampling.** Another process testing `tick` at the edge that schedules it high sees the previous value; it acts at the edge ending the asserted interval. Align dependent state to that convention. If reset must cancel an old high tick, give the consumer's reset priority over its enable.
+**Account for same-clock sampling.** A process testing `tick` on the edge that sets it high still reads its previous value. The consumer acts on the following edge, at the end of the high interval, so align dependent state with that edge. If reset must cancel an already-high tick, give reset priority in the consumer too.
 
-**A pulse is not a new timebase.** Logic in another clock domain still needs a pulse synchronizer or handshake; a one-cycle source pulse can be missed by a slower domain.
+**Synchronize ticks across clock domains.** Logic in another clock domain still needs a pulse synchronizer or handshake; a one-cycle source pulse can be missed by a slower domain.
 
 ## Files
 

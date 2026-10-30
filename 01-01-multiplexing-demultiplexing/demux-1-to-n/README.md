@@ -2,7 +2,7 @@
 
 Routes one W-bit data word into one of N packed output slices. A binary index chooses the destination; every unselected slice is driven to zero, including all destinations for an invalid index.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **1.1 — Multiplexing & Demultiplexing**.
+Companion to *FPGA Identikits* by Andrea Fato, group **1.1 — Data selection and distribution**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -10,13 +10,13 @@ interface assumptions and design pitfalls.
 
 **Size the index deliberately.** Require `SEL_WIDTH >= max(1, ceil(log2(N)))`. Unused binary codes in non-power-of-two configurations retain the zero fallback.
 
-**Drive every route and preserve packing.** Clear all slices before overriding the selected one to prevent latches. Route zero uses the low W bits; both ends must agree on packing.
+**Drive every route and preserve packing.** Clear all output slices before assigning the selected one, so no route retains an old value and infers a latch. Route zero occupies the low W bits; use that same packing order in the receiving logic.
 
 **Consider a shared-bus alternative.** The source can drive one common data bus while a decoder enables only the selected destination. This works when disabled destinations ignore the bus. Unlike this demultiplexer, it does not drive every inactive data path to zero. Compare both structures after synthesis.
 
 **One source still creates fanout.** Although only one output slice is functionally active, `din` feeds the routing logic for every possible destination. Large values of `N` can increase area, delay, and routing pressure; inspect the synthesized structure and timing report.
 
-**Treat the route as combinational.** Select transitions can move or split an active pulse in physical hardware. Synchronize or handshake an asynchronous control, and capture the selected data under one coherent timing assumption.
+**Hold data and selection stable.** Changing the selection while a pulse is active can move or split the pulse between destinations. If the control is asynchronous, synchronize it or transfer it through a handshake. The destination must then capture the selected data while both the route and data meet its timing requirements.
 
 ## Files
 

@@ -14,9 +14,9 @@ interface assumptions and design pitfalls.
 
 **Wrap occurs in both directions.** Maximum plus one becomes zero, and zero minus one becomes maximum. Use saturation when boundary hold is the required behavior.
 
-**Direction changes the next edge only.** It does not undo the current count or preload another value. Protocols that reverse at an endpoint must define whether the endpoint is repeated.
+**Direction changes the next edge only.** Changing direction affects the next count operation; it neither reverses a completed operation nor loads a new value. If the count must turn around at an endpoint, define whether it holds that endpoint for another cycle before moving back.
 
-**Unknown control is not a direction.** When reset is inactive and direction is evaluated, the template warns and holds if `dir` is neither binary value.
+**Unknown control is not a direction.** When reset is inactive and direction is evaluated, the template warns and holds if `dir` is neither literal `'0'` nor `'1'`.
 
 ## Files
 

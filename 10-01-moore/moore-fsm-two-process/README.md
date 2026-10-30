@@ -10,13 +10,13 @@ interface assumptions and design pitfalls.
 
 **Default every combinational result.** Assign `nstate` and `y` before the case statement to define hold and inactive behavior on every path. Without such defaults or otherwise complete assignments, an uncovered path can infer a latch.
 
-**Moore describes dependency, not registration.** Here `y` is a combinational decode of registered state. State-bit clock-to-Q skew and decode logic can still create a transient; use the registered-output style when the interface requires a clocked, glitch-resistant output.
+**Moore describes dependency, not registration.** A Moore output depends only on state, but here it is decoded by combinational logic. State bits can change at slightly different times after an edge, causing a brief output transient. Choose the registered-output style when the receiving interface requires a clocked, glitch-resistant signal.
 
 **Synchronize external inputs first.** The FSM does not make asynchronous `x` safe. A setup/hold violation can make the transition decision unpredictable; synchronize or handshake at the destination domain.
 
 **Constrain the sampled inputs.** `x` and synchronous `rst` must meet setup and hold at `clk`.
 
-**Account for decode delay.** A synchronous reset changes the stored state only at an active edge. The combinational output then settles after state clock-to-Q and decode delay, so downstream timing must include both paths.
+**Account for decode delay.** A synchronous reset changes the stored state only at an active edge. The combinational output then settles after state clock-to-Q and decode delay, so downstream timing must include both delays.
 
 ## Files
 

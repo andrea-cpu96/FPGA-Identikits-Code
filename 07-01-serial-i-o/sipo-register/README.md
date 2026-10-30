@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Startup is not reset.** With no declared initial value, simulation starts at `'U'` and hardware power-up is device-dependent. The parallel word becomes fully known after reset or after N known serial captures.
 
-**Capture a coherent word.** Downstream logic should use `q` only when a companion valid or count indicates completion. Otherwise it observes a mixture of adjacent words during assembly.
+**Capture a coherent word.** While the word is being assembled, `q` contains bits from adjacent words. A companion bit counter or valid flag must identify when all bits of the new word have arrived; downstream logic should use `q` only at that point.
 
-**Check implementation mapping.** Dedicated shift-register resources and reset support vary by device and tool; inspect the synthesized result. An asynchronous source still needs protocol-appropriate sampling or synchronization.
+**Check implementation mapping.** Dedicated shift-register resources and reset support vary by device and tool, so inspect the synthesized result. An asynchronous source still needs protocol-appropriate sampling or synchronization.
 
 ## Files
 

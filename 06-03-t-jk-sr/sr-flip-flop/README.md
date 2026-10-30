@@ -8,11 +8,11 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Reject simultaneous set and reset.** With `rst` inactive, this template holds when `s=r='1'`; other SR circuits need not behave that way. Active reset still clears the bit. Guard the forbidden combination and add a verification assertion; the supplied RTL has none.
+**Reject simultaneous set and reset.** With `rst` inactive, this template holds when `s=r='1'`; other SR circuits need not behave that way. Active reset still clears the bit. The supplied RTL has no assertion, so prevent the forbidden combination and add a verification check that detects it.
 
 **Constrain the sampled controls.** `s`, `r`, and synchronous `rst` must meet setup and hold at `clk`. Check the full source-to-register and clock-to-output-to-destination paths in static timing analysis, not only the mutual-exclusion logic.
 
-**Scale the word, not the pattern.** The SR rule is written for one bit. With shared scalar controls, a wider variant loads all ones / all zeros; the same exclusivity rule applies. Per-bit controls require another interface. Prefer a D register with explicit controls when the payload is a real data word.
+**Shared set/reset controls affect every bit.** This SR rule controls one bit. Applying shared scalar set/reset controls to a wider register would set every bit to one or clear every bit to zero, with the same mutual-exclusion requirement. Independent per-bit control needs a different interface. For an arbitrary data word, a D register with explicit controls is usually clearer.
 
 ## Files
 

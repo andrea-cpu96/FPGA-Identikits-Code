@@ -8,7 +8,7 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Reset is a system choice.** This block has no reset port. The design must define when its output is valid, for example after a known input word is captured. Reset control state where needed; datapath registers need not all have a reset.
+**Define when the output becomes valid.** Because this block has no reset port, the surrounding design must decide when its output becomes valid, for example after it captures a known word. Control state may need a reset, while datapath registers can often remain unreset if their contents are ignored until valid.
 
 **Data must be stable.** `d` must meet setup and hold at the sampling edge. For a word crossing from another clock domain, use a coherent multi-bit CDC scheme, such as a handshake or asynchronous FIFO. Independent bit synchronizers do not guarantee word coherence.
 

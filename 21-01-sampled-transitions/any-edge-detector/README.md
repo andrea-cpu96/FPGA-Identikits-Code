@@ -2,13 +2,13 @@
 
 Compares the current clock-domain input with its previous sample. The registered output is high in each cycle whose sample changed in either direction. Consecutive changed samples can keep it high across cycles.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **21.1 — Sampled transitions**.
+Companion to *FPGA Identikits* by Andrea Fato, group **22.1 — Sampled transitions**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Present a clock-domain level.** This is not a synchronizer. An asynchronous input can violate sampling timing and make behavior uncertain. Synchronize a persistent external level first; debounce a contact before converting its accepted change into a pulse.
+**Synchronize asynchronous inputs first.** The detector assumes its input already meets the local clock timing. An asynchronous input can violate that assumption, so first synchronize a persistent external level. For a mechanical contact, also debounce the synchronized level before converting accepted changes into pulses.
 
 **Expect an event on every sampled toggle.** If the input alternates on consecutive edges, the output stays high across those adjacent event cycles; it is not guaranteed to have a low gap between separate events.
 

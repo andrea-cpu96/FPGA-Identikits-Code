@@ -8,15 +8,15 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Commit duty at the boundary.** `duty` is sampled only on the edge that starts a period. An update cannot truncate a high interval or add an extra pulse, but it can take up to `PERIOD` cycles to appear.
+**Commit duty at the boundary.** Sampling duty only at a period boundary prevents mid-period changes from truncating or adding pulses. The new value can therefore wait up to `PERIOD` cycles before taking effect.
 
-**Keep the limits exact.** Zero gives a constant low with no runt pulse; any code $\geq$ `PERIOD` gives a constant high. `PERIOD` $<2^N$ reserves a full-duty code, and the concurrent assertion rejects $`PERIOD`\geq 2^N$.
+**Support zero and full duty.** Zero gives a constant low with no runt pulse; any code $\geq$ `PERIOD` gives a constant high. `PERIOD` $<2^N$ lets the N-bit duty input represent full duty, and the concurrent assertion rejects $`PERIOD`\geq 2^N$.
 
 **Constrain the sampled inputs.** Synchronous `rst` must meet setup and hold at `clk`. Because `duty` is sampled only at the period boundary, it must meet setup and hold at that boundary edge.
 
 **Trade resolution for frequency.** The output repeats at $f_{clk}/`PERIOD`$ with a duty step of $1/`PERIOD`$. At 100\,MHz, `PERIOD=255` gives about 392\,kHz with 8-bit resolution.
 
-**Drive duty from the same clock domain.** Transfer a word from another domain coherently; synchronizing its bits independently can commit a mixed value.
+**Drive duty from the same clock domain.** Transfer an off-domain duty word coherently, for example with a handshake; synchronizing its bits independently can commit a mixed value.
 
 **Add power-stage protection externally.** The output is glitch-free, but dead time and fault shutdown are separate requirements.
 

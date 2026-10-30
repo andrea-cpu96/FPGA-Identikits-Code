@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Complete both combinational processes.** Give `nstate` a hold default and `y` an inactive default. Without defaults or otherwise complete assignments, uncovered paths can infer latches.
 
-**Preserve Mealy sensitivity.** The output process must be sensitive to state and every input that it reads. Omitting `x` can hide immediate responses in simulation even though synthesized combinational hardware reacts.
+**Include every read signal in the sensitivity list.** The output process must wake whenever state or any input it reads changes. If `x` is omitted from the sensitivity list, simulation may leave the old output unchanged even though the synthesized combinational circuit responds immediately.
 
 **Synchronize external inputs first.** An asynchronous `x` can violate state-register timing and propagate directly to `y`. Use a synchronizer or handshake, and register the output when the receiver requires an edge-aligned, glitch-resistant control.
 

@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Check before converting.** The template rejects non-binary index bits before numeric conversion, then checks the range before indexing `y`. The upper bound on `N` keeps the index within 30 bits.
 
-**Keep selection and timing separate.** A changing binary index can briefly activate an unintended output in hardware. Use the decoder for settled data selection, not as a glitchless clock or reset source. Register the result when the receiving interface requires it.
+**Decoded outputs can glitch.** A changing binary index can briefly activate an unintended output in hardware. Use the decoder for settled data selection, not as a glitchless clock or reset source. Register the result when the receiving interface requires it.
 
 **Plan for realistic sizes.** The generic range is a numeric limit, not a promise that every size fits an FPGA. Check resource use and routing delay. Transfer asynchronous addresses coherently before decoding them.
 

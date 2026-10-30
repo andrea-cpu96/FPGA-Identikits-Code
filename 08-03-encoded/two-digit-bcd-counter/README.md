@@ -10,7 +10,7 @@ interface assumptions and design pitfalls.
 
 **BCD is not ordinary eight-bit binary.** The packed BCD representation of decimal 42 is `x"42"` (`0100 0010`), not its ordinary binary representation `0010 1010`. Arithmetic must operate per digit or convert the representation.
 
-**Carry is synchronous.** Tens changes on the same edge that wraps ones; no ripple clock is created. Extend the pattern with another clock-enabled decade, never by clocking it from the previous carry.
+**Carry is synchronous.** The tens digit updates on the same clock edge that wraps the ones digit. To add another decade, use that carry condition as its clock enable while keeping the same clock. Clocking the new digit from carry would create a separate ripple-clock structure.
 
 **Define fault recovery.** The normal recurrence assumes legal digits. The template detects any digit above 9 and clears both digits on the next enabled edge.
 

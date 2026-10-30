@@ -2,7 +2,7 @@
 
 Synchronizes a single asynchronous input, then accepts a different level only after STABLE consecutive qualifying clock samples. A sample matching the accepted level clears the timer. Both rising and falling changes are filtered.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **18.1 — Turn a button press into one clean action**.
+Companion to *FPGA Identikits* by Andrea Fato, group **19.1 — Turn a button press into one clean action**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -10,7 +10,7 @@ interface assumptions and design pitfalls.
 
 **Choose a physical interval.** Use a threshold appropriate to the clock frequency and measured switch bounce. The nominal setting is STABLE/$f_{clk}$; the STABLE observations themselves span STABLE-1 clock periods. Include sampling phase and synchronizer latency in response budgets.
 
-**No accumulation across bounces.** Every return to the current accepted level clears the count. This is consecutive-sample qualification, not an up/down noise integrator. A disturbance between clock observations may be missed; the filter does not prove continuous analog stability.
+**No accumulation across bounces.** Every return to the currently accepted level clears the count, so only consecutive qualifying samples accumulate. This differs from an up/down noise integrator. A disturbance entirely between sampling edges can still be missed: agreement at the sampled instants does not prove that the analog signal was continuously stable.
 
 **Implement the synchronizer physically.** Mark and place the two stages using the FPGA vendor's CDC (see the book's CDC appendix) flow; prevent retiming or shift-register extraction. Only the second stage feeds the filter. Two stages reduce metastability risk but do not eliminate it; check timing and the required reliability separately.
 

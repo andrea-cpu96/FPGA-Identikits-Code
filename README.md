@@ -57,7 +57,7 @@ GHDL route has not been validated in this release.
 | 7.1 | [Serial I/O](07-01-serial-i-o/) | 4 |
 | 7.2 | [Parallel / Universal](07-02-parallel-universal/) | 3 |
 | 7.3 | [Feedback](07-03-feedback/) | 4 |
-| 7.4 | [Special](07-04-special/) | 2 |
+| 7.4 | [Rotation and Selectable Delay](07-04-special/) | 2 |
 | 8.1 | [Basic Counters](08-01-basic-counters/) | 3 |
 | 8.2 | [Up / Down](08-02-up-down/) | 3 |
 | 8.3 | [Encoded](08-03-encoded/) | 2 |
@@ -90,7 +90,7 @@ Existing folder paths are retained for stable links; the table and individual RE
 ## Verification and limits
 
 All 105 standalone testbenches pass with ModelSim Intel FPGA Starter Edition
-2020.1 (VHDL-2008), recorded on 2026-10-18. See
+2020.1 (VHDL-2008), rechecked on 2026-10-30. See
 [the verification record](verification/README.md). Tests include mathematical
 reference models, protocol scoreboards and directed boundary cases as appropriate
 to the block. This is not exhaustive verification of all parameter combinations.
@@ -108,8 +108,19 @@ failure assertions are never ignored.
   the earlier project from which the book developed.
 
 `manifest.json` maps every folder to its book identikit and records its RTL hash.
-The initial RTL snapshot corresponds to the book sources at commit `41c5547`.
-The book repository's `scripts/export_companion.py` maintains the source mapping.
+The current source and organization audit is recorded in
+[verification/book-sync.json](verification/book-sync.json). The book repository's
+`scripts/export_companion.py` maintains the source mapping.
+
+To check this checkout against a local manuscript checkout without rebuilding PDFs:
+
+```text
+python scripts/check_book_sync.py --book ../FPGA-Digital-Blocks-Identikit
+```
+
+The check compares actual RTL, identikit membership and numbering, titles,
+group navigation, and testbench identification. Published folder URLs are
+intentionally stable; their numeric prefixes are not authoritative chapter numbers.
 
 ## Licensing
 

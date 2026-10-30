@@ -14,9 +14,9 @@ interface assumptions and design pitfalls.
 
 **Constrain the sampled controls.** Synchronous `rst`, `arm`, and `kick` must meet setup and hold requirements at `clk`.
 
-**Kick from evidence of progress.** A kick held high or driven by a free-running source defeats the watchdog. Pulse it when the supervised logic completes useful work; windowed and keyed variants also reject early or stuck kicks.
+**Kick from evidence of progress.** Pulse kick when supervised logic completes useful work. A stuck-high or free-running kick can hide a failure. Windowed or keyed variants add checks against early or stuck kicks.
 
-**Plan the recovery path.** If `expired` drives a reset that also clears the watchdog, stretch that reset, record the cause where needed, and re-arm once the supervised logic restarts. Bring a kick from another domain in through a pulse synchronizer.
+**Plan the recovery path.** Resetting the watchdog also clears its reset request. Stretch that request as needed, record the cause, then re-arm after recovery. Transfer off-domain kicks through a pulse synchronizer.
 
 ## Files
 

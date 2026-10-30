@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Constrain the Gray crossings.** Mark and place synchronizers with the target flow; prevent retiming and shift-register extraction. Constrain source-Gray to first-stage delay/skew, typically within one source-clock period and following the target vendor's CDC guidance, so successive transitions cannot overlap.
 
-**Keep flags local.** Full belongs to the writer; empty to the reader. These combinational decodes may glitch: use them only for local synchronous decisions, never as clocks or asynchronous controls. Two stages reduce, but do not eliminate, metastability risk.
+**Keep flags local.** Use full in the write domain and empty in the read domain. Because these flags are combinational decodes, they can glitch; consume them only in local synchronous decisions, never as clocks or asynchronous controls. The two synchronization stages reduce metastability risk but do not eliminate it.
 
-**Verify the implementation.** The write process alone drives storage. Check dual-clock RAM inference, initialization, timing, and CDC (see the book's CDC appendix) reports; simulation cannot prove physical safety. Use binary local requests and a depth supported by the tool and device.
+**Check RAM and CDC mapping.** The write process alone drives storage. Check dual-clock RAM inference, initialization, timing, and CDC (see the book's CDC appendix) reports; simulation cannot prove physical safety. Use binary local requests and a depth supported by the tool and device.
 
 ## Files
 

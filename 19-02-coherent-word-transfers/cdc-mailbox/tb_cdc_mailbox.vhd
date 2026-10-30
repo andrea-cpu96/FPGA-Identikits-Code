@@ -1,4 +1,4 @@
--- Self-checking tests for identikit 19.2.1: CDC request/acknowledge mailbox.
+-- Self-checking tests for identikit 20.2.1: CDC request/acknowledge mailbox.
 -- Each case instantiates only this identikit. Models use sampled inputs.
 -- Family stimulus/reference variables may be shared; only this DUT is checked.
 -- Functional RTL verification does not model analog metastability or routing.

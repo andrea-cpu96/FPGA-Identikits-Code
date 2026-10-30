@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Reset defines a new sum.** No initial value is declared; sample reset before the first accumulation. Reset wins even when enable is high. Holding enable high counts the current operand pair again on every edge; there is no request handshake or automatic end-of-sum event.
 
-**Respect the feedback timing path.** Multiplication and addition must meet the same receiving edge. DSP mapping is target-dependent. Inserting registers changes the operand and feedback timing; it is not equivalent to adding a delay to the output of this recurrence.
+**Respect the feedback timing path.** The multiply and add must finish before the edge that stores the next accumulated sum. Check the mapped path because DSP use depends on the target. Adding registers inside this path changes when both operands and feedback are used; it cannot be treated as merely delaying the output.
 
 **Keep inputs synchronous and binary.** Data and controls must meet setup and hold. There is no custom invalid-input fallback: an unknown enabled operand can contaminate the running sum until reset. Only literal `'1'` activates each control branch; invalid controls are not diagnosed.
 

@@ -8,11 +8,11 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Place registers around the logic.** Extra delay stages alone do not split a long combinational path; timing improvement needs logic partitioning or supported retiming. This chain aligns data with sidebands and holds up to N words in flight, but provides no stall or backpressure.
+**Place registers around the logic.** Adding delay registers after a long combinational path does not shorten that path. To improve timing, divide the logic between stages or use supported retiming. This chain is useful for delaying data and its sidebands together, with up to N words in flight, but it cannot stall or apply backpressure.
 
 **Constrain every stage.** Input-to-stage-0 and stage-to-stage paths must meet setup and hold at `clk`; extra stages do not replace clock/I/O constraints or static timing analysis.
 
-**Keep data and valid locked.** The flag must march through the same stages as its word; delaying them separately invites skew. On reset only the valid stages are cleared -- assert that before the pipeline restarts so stale data never leaves as valid.
+**Delay data and valid together.** A valid flag must travel through the same stages as its data word so the receiver knows which output words to use. Reset clears the valid stages without clearing the data. Assert it before restarting the pipeline, otherwise an old word may still be marked valid.
 
 ## Files
 

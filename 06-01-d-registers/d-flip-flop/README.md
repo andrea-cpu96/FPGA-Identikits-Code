@@ -14,7 +14,7 @@ interface assumptions and design pitfalls.
 
 **Startup is not reset.** No initial value is declared. In simulation, `q` remains `'U'` until a rising edge captures data or an asserted reset. The power-up value in hardware is device-dependent unless it is defined explicitly and supported by the target technology.
 
-**Implementation choices.** This description should infer one flip-flop. Do not gate `clk` in ordinary logic to add an enable; use the dedicated clock-enable form of the register instead. A synchronous reset may be mapped through the data path on some devices, so check the synthesized result when reset fanout or timing is important.
+**Check flip-flop and reset mapping.** This description should infer one flip-flop. Do not gate `clk` in ordinary logic to add an enable; use the dedicated clock-enable form of the register instead. A synchronous reset may be mapped through the data path on some devices, so check the synthesized result when reset fanout or timing is important.
 
 ## Files
 

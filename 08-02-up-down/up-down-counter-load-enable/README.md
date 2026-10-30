@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Constrain the sampled inputs.** Synchronous `rst`, `load`, and `en` must meet setup and hold at `clk`. When counting, `dir` must also meet timing; when loading, `d` must be stable across that edge. For another clock domain, transfer the word with a handshake; independent bit synchronizers can create a mixed value.
 
-**Validate only controls that matter.** An invalid `dir` is relevant only while counting. The template warns and holds in that case; while loading or disabled it does not inspect direction.
+**Validate only controls that matter.** When counting, an invalid `dir` would leave the requested operation unclear, so the template warns and holds the count. During loading or while disabled, direction has no effect and is not checked.
 
-**Enable is not clock gating.** It controls the register data path and preserves use of the dedicated clock network.
+**Enable is not clock gating.** Enable controls register updates while preserving use of the dedicated clock network.
 
 ## Files
 

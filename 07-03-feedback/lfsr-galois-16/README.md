@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **The mask encodes the recurrence.** `B400` is correct for these logical stages and this right shift. A left shift or a different mapping from indices to stages requires a re-derived mask and reference trace. Merely observing another state bit leaves the recurrence unchanged; document the new serial stream and its phase instead.
 
-**Never use the zero seed.** Reset loads `0001`. A programmable seed interface must reject or replace zero; normal feedback cannot escape it.
+**Never use the zero seed.** Reset loads `0001`. A programmable seed interface must reject or replace zero because normal feedback cannot leave the all-zero state.
 
 **Reset must meet timing.** Synchronous `rst` must meet setup and hold requirements at `clk`.
 
-**Galois and Fibonacci states differ.** The two forms implement the same polynomial family but do not produce identical internal words edge by edge from the same visible seed. Verify each against its own recurrence.
+**Galois and Fibonacci states differ.** Although the two forms implement the same polynomial family, the same visible seed does not give identical internal words at each edge. Verify each implementation against its own recurrence rather than expecting their register contents to match cycle by cycle.
 
 **Distributed feedback can shorten XOR depth.** That may improve timing, but actual mapping depends on the target and synthesis tool. The sequence is still linear and is not suitable for cryptographic randomness.
 

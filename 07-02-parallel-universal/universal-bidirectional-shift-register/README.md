@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Controls must meet timing.** `sel` and synchronous `rst` must meet setup and hold at `clk`. At the edge, the data input selected by the active mode (`d`, `si_l`, or `si_r`) must also meet timing. Synchronize or handshake off-domain controls and words.
 
-**Startup is not reset.** Simulation starts at `'U'` and hardware power-up is device-dependent. Reset or a known load establishes the full word; one shift replaces only one stage per edge.
+**Startup is not reset.** Simulation starts at `'U'` and hardware power-up is device-dependent. Reset or a known load establishes the full word; each shift introduces only one new input bit per edge.
 
-**Expect multiplexing before storage.** Every stage selects hold, either shift neighbor, or parallel data. Mapping and delay depend on width, reset, device, and tool; a dedicated shift primitive is not guaranteed.
+**Expect multiplexing before storage.** Each stage selects hold, either shift neighbor, or parallel data before capture. This adds logic and delay. Check the mapped resources for your width, reset and device; a dedicated shift primitive is not guaranteed.
 
 ## Files
 

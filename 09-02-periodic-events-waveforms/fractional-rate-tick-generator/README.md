@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Distinguish interval and phase error.** Gaps are the floor or ceiling of `DEN/NUM`; an integer ratio gives equal intervals. Each tick is less than one clock period late relative to ideal times measured from the reset/restart origin.
 
-**Reduce the ratio.** Divide `NUM` and `DEN` by their common factor to minimize the phase width. The assertion rejects $`NUM`>`DEN`$ and a `DEN` that would overflow the phase sum.
+**Reduce the ratio.** Divide `NUM` and `DEN` by their greatest common factor to minimize the phase width. The assertion rejects $`NUM`>`DEN`$ and a `DEN` that would overflow the phase sum.
 
 **Constrain the sampled controls.** Synchronous `rst` and `restart` must meet setup and hold requirements at `clk`.
 
-**Consume the registered value.** A same-clock consumer sees the old `tick`, acting at the following edge. Reset/restart clears the new tick; cancelling an old high tick also requires consumer reset or inhibit.
+**Consumers act on the following edge.** A same-clock consumer reads the previous `tick` value and therefore acts on the edge after the generator sets it high. Reset or restart clears the generator output, but does not cancel an old high value already being sampled. Reset or inhibit the consumer as well if that action must be suppressed.
 
 **Use the tick as an enable, not a clock.** Test `tick` inside the source-clock process. Another clock domain needs its own generator, or a pulse synchronizer when ticks are spaced far enough apart for the destination clock.
 

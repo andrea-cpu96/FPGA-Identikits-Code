@@ -2,7 +2,7 @@
 
 Samples one input bit into an N-stage shift chain on every rising edge. After edge $m$ settles, tap $k$ contains sample $x[m-k]$; a binary selector routes one of those registered history stages to the output.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **7.4 — Special**.
+Companion to *FPGA Identikits* by Andrea Fato, group **7.4 — Rotation and Selectable Delay**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -14,9 +14,9 @@ interface assumptions and design pitfalls.
 
 **Define invalid selection.** Unused, unknown, or high-impedance selector codes produce zero; assertions distinguish the cases.
 
-**Establish and qualify the history.** Without reset, simulation starts with unknown stored values. A sampled reset fills every tap with zero; after release, deeper taps contain reset padding until replaced by known captures. If padding is not real data, track history validity externally.
+**Establish and qualify the history.** Without reset, the stored samples start unknown in simulation. Reset fills every tap with zero, and deeper taps keep that padding until enough new samples arrive. If those zeros must not be treated as acquired data, track externally how much valid history has accumulated.
 
-**Mapping depends on the complete contract.** Dynamic tap selection can map to an addressable shift-register primitive on supported FPGAs. Requiring reset on every stage may prevent that mapping; target architecture, width, and synthesis support decide between primitives, flip-flops, or memory.
+**Reset can prevent shift-primitive mapping.** Dynamic tap selection can map to an addressable shift-register primitive on supported FPGAs. Requiring reset on every stage may prevent that mapping; target architecture, width, and synthesis support decide between primitives, flip-flops, or memory.
 
 ## Files
 

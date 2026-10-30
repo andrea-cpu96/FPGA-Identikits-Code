@@ -10,9 +10,9 @@ interface assumptions and design pitfalls.
 
 **Use the completion event.** Ignore intermediate `q` and `r`. Final values hold until the next accepted `start` or reset. A synchronous consumer samples `done` and the result at the following edge, even if a new request is accepted there.
 
-**Define the request protocol.** Pulse `start` with coherent operands. Changes to `a` or `b` while `busy` have no effect. Holding `start` high requests another division at the next idle edge. There is no request queue.
+**Define the request protocol.** Pulse `start` while presenting a coherent operand pair. Once the request is accepted, changes to `a` and `b` do not affect the active division. A held-high `start` requests another division at the next idle edge; requests are not queued while busy.
 
-**Treat zero as an error.** Check `b` before starting or track its zero status with the request. There is no error flag; `q` and `r` alone cannot identify zero division. Reset aborts any iteration, clears the outputs, and suppresses `done`.
+**Reject a zero divisor.** Check `b` before starting or track its zero status with the request. There is no error flag; `q` and `r` alone cannot identify zero division. Reset aborts any iteration, clears the outputs, and suppresses `done`.
 
 **Constrain the inputs and timing.** Use synchronous, binary controls and operands; no invalid-input fallback is provided. Each shift/subtract step must meet one clock period. `N`-cycle latency does not justify a multi-cycle timing exception.
 

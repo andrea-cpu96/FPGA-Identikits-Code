@@ -10,7 +10,7 @@ interface assumptions and design pitfalls.
 
 **Do not read packed BCD as binary.** The pattern `0x255` means decimal 255; read as a plain binary number it would be 597. Each nibble can feed a decimal-only digit decoder; remove leading zeros at the display boundary, not in this mapping.
 
-**Keep the range explicit.** The largest legal input is 255 and needs three digits. A wider source must be checked or resized before this block; truncating its upper bits silently changes its value.
+**Keep the range explicit.** This input can represent at most 255, which requires three decimal digits. If the source is wider, check its range before resizing it for this block. Simply discarding the upper bits can turn an out-of-range number into a different, apparently valid value.
 
 **Budget the conversion path.** Eight add-three/shift stages form combinational logic. For a wider input or tighter timing, an iterative clocked converter or pipeline may trade latency for a shorter stage delay.
 

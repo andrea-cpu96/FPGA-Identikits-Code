@@ -8,7 +8,7 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Separate the two precisions.** W sets the input and output range; F preserves fractional state. Both right shifts round downward. A small positive difference can stop changing the state before it reaches the target, leaving an internal-state error below $2^{K-F}$ input units. The integer output is rounded down again and can remain one unit below a constant input.
+**Distinguish word and fractional widths.** W sets the input and output range; F preserves fractional state. Both right shifts round downward. A small positive difference can stop changing the state before it reaches the target, leaving an internal-state error below $2^{K-F}$ input units. The integer output is rounded down again and can remain one unit below a constant input.
 
 **Set the response in sample time.** Larger K means slower smoothing. An irregular sample enable changes the response measured in seconds. Keep the accepted sample rate regular when a predictable frequency response matters.
 

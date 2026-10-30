@@ -1,4 +1,4 @@
--- Self-checking tests for identikit 18.1.1: Counter-based debouncer.
+-- Self-checking tests for identikit 19.1.1: Counter-based debouncer.
 -- Each case instantiates only this identikit. Models use sampled inputs.
 -- Family stimulus/reference variables may be shared; only this DUT is checked.
 -- Functional RTL verification does not model analog metastability or routing.

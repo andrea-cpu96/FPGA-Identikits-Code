@@ -14,9 +14,9 @@ interface assumptions and design pitfalls.
 
 **Startup is not reset.** Simulation begins at `'U'` and hardware power-up is device-dependent. A known reset, a known parallel load, or N zero-filling shifts establishes known state. Load wins over shift.
 
-**Framing and bit order are external.** Add count and handshake logic for an exact transaction. The default LSB-first stream is reversed by the default SIPO after N captures; change one direction or ordering when reconstructing the original word.
+**Framing and bit order are external.** The PISO shifts bits but does not identify transaction boundaries, so add a counter and handshake logic to delimit each word. Its default LSB-first stream emerges reversed from the default SIPO after N captures. Change one direction or bit order if the link must reconstruct the original word.
 
-**Check implementation mapping.** Parallel load, reset, enables, and visible outputs influence whether dedicated shift-register resources can be used. Mapping depends on device and synthesis tool. Zero fill empties the register after N shifts.
+**Check implementation mapping.** Parallel load, reset, enables, and visible outputs influence whether dedicated shift-register resources can be used. Mapping depends on device and synthesis tool. After N zero-filling shifts, every stored bit is zero.
 
 ## Files
 

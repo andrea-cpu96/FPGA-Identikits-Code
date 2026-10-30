@@ -10,9 +10,9 @@ interface assumptions and design pitfalls.
 
 **J and K together toggle.** That is the distinguishing rule of the JK: a simultaneous set and reset request is resolved as a toggle rather than an error. Verify the complete JK truth table matches the design intent before relying on it at a protocol boundary.
 
-**Constrain both controls.** `j`, `k`, and synchronous `rst` must meet setup and hold at `clk`. Treat their source logic as part of the same register-to-register timing path, even when only one control is expected to change in a normal cycle.
+**Meet timing for J, K and reset.** `j`, `k`, and synchronous `rst` must meet setup and hold at `clk`. Treat their source logic as part of the same register-to-register timing path, even when only one control is expected to change in a normal cycle.
 
-**A held pair keeps toggling.** With reset inactive, holding both `j` and `k` high toggles the bit at every rising edge. Use a single-cycle request when one toggle is intended; these are controls of one register, not competing drivers.
+**Holding J and K high repeats toggles.** With reset inactive, the flip-flop toggles on every rising edge for which both `j` and `k` are high. Make the request one cycle long if only one toggle is wanted. The two inputs control one register; they do not act as competing output drivers.
 
 ## Files
 

@@ -8,7 +8,7 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Allow time to fill.** The filter advances in sample time, not on every clock. A pause in `ce` preserves the entire window. It holds `dout` and clears `valid`; continuously asserted valid therefore means a new result on every clock.
+**Advance only on accepted samples.** The filter advances in sample time, not on every clock. A pause in `ce` preserves the entire window. It holds `dout` and clears `valid`; continuously asserted valid therefore means a new result on every clock.
 
 **Keep the sum wide.** The W+K-bit signed sum accommodates all L full-scale samples. Arithmetic right shift implements division with downward rounding, so a sum of $-1$ produces $-1$, not zero.
 

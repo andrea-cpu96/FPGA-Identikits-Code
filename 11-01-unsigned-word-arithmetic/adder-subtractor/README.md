@@ -8,13 +8,13 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Specify modular behavior.** With two W-bit `unsigned` operands, each `numeric_std` arithmetic expression produces W bits: addition and subtraction wrap modulo $2^W$. A wider destination alone would not retain a carry or borrow; extend operands *before* arithmetic, as in the two status-bearing identikits. Wrapping is not saturation or an error flag.
+**Specify modular behavior.** With two W-bit `unsigned` operands, each `numeric_std` arithmetic expression produces W bits: addition and subtraction wrap modulo $2^W$. A wider destination alone would not retain a carry or borrow; extend operands *before* arithmetic, as in the identikits with carry and borrow outputs. Wrapping is not saturation or an error flag.
 
 **Use an explicit numeric type.** Both operands are interpreted as `unsigned`. A signed arithmetic unit can share much of the hardware, but its overflow and comparison rules differ.
 
 **Mode changes are combinational.** Switching `op` can change the output between clock edges, and the path may glitch while settling. Register the selected result when a cycle-stable interface is required.
 
-**Reject ambiguous controls.** A weak or unknown `op` is not silently treated as subtraction. The template warns and drives zero, as it does for non-binary operand bits. Zero can also be a valid result, so the warning is the only diagnostic; these fallbacks do not cure metastability.
+**Reject ambiguous controls.** An unknown or weak `op` does not select subtraction by default. The template reports it and drives zero, just as it does for non-binary operand bits. Since zero is also a valid result, only the warning identifies this case in simulation. The fallback cannot prevent metastability in hardware.
 
 ## Files
 

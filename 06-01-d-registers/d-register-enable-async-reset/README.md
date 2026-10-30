@@ -8,9 +8,9 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Two independent controls.** The reset acts between edges, the enable at the edge. Reset overrides both hold and capture: `rst` clears a disabled register, and `en='0'` holds the word even after a reset pulse ends. Keep the two branches ordered, reset first, so the immediate clear always wins. When reset is inactive, `en` and any captured `d` must meet setup and hold at `clk`.
+**Reset overrides the enable.** Reset can clear the register between clock edges, whereas enable is sampled only at an edge. Reset takes priority even when the register is disabled. Once reset ends, `en='0'` keeps the cleared word unchanged until capture is enabled again. Keep reset first in the code, and ensure that `en` and any captured `d` meet setup and hold at `clk` when reset is inactive.
 
-**Release must be synchronized.** Assertion may be asynchronous, but deasserting `rst` near a clock edge can violate recovery or removal timing and release different bits inconsistently. Synchronize the release in the destination clock domain; `en` does not protect against this risk.
+**Synchronize reset release.** Assertion may be asynchronous, but deasserting `rst` near a clock edge can violate recovery or removal timing and release different bits inconsistently. Synchronize the release in the destination clock domain; `en` does not protect against this risk.
 
 ## Files
 

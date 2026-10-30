@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Define retrigger behavior.** Start has priority over an active countdown and replaces it. A non-retriggerable timer should ignore or flag starts while busy.
 
-**Keep completion registered.** Counter carry propagation cannot glitch `done`. Isolated events last one cycle; consecutive events can keep it high.
+**Keep completion registered.** Registering `done` prevents counter-propagation glitches. Each completion asserts it for one cycle, but consecutive completions keep it high. Count asserted cycles rather than expecting a rising transition for every event.
 
-**Time requests coherently.** Meet setup/hold for `rst`, `start`, and the accepted `d`. Across domains, transfer `start` and `d` together with a handshake.
+**Transfer start and data together.** Meet setup/hold for `rst`, `start`, and the accepted `d`. Across domains, transfer `start` and `d` together with a handshake.
 
 ## Files
 

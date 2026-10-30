@@ -2,17 +2,17 @@
 
 Stores stream words in an output register and a spare register. The spare captures one more accepted word when the consumer stalls. Both output data and validity are registered; input readiness depends only on stored state, breaking the combinational ready path between stages.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **20.1 — Ready/valid buffering**.
+Companion to *FPGA Identikits* by Andrea Fato, group **21.1 — Ready/valid buffering**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Reserve space for delayed backpressure.** The spare catches one extra accepted word. A full buffer cannot accept on its first draining edge; readiness returns afterward. Output transfers can still continue every clock.
+**Reserve space for delayed backpressure.** The spare entry absorbs the word accepted before backpressure arrives. When full, the first draining edge cannot accept input; readiness returns afterward. Output transfers can still occur on consecutive clocks.
 
 **Respect the handshake.** Use synchronous binary controls. Hold input valid/data while blocked, and keep sideband fields in the same stored word. The output holds valid/data during a stall.
 
-**Coordinate reset.** Reset overrides transfers and discards pending words. Keep `in_valid` low and inhibit consumption on reset edges; ready may be high during reset. Invalid data bits are unspecified.
+**Coordinate reset.** Reset overrides transfers and discards pending words. Keep `in_valid` low and inhibit consumption on reset edges; ready may be high during reset. Data is unspecified when its valid flag is low.
 
 **Check the timing boundary.** Ready has no combinational path across this stage. Check the local register paths and routing after implementation. Both interfaces share one clock; this buffer does not synchronize clock domains.
 

@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Complete both combinational processes.** Give `nstate` a hold default and `y` an inactive default before their case statements. Without defaults or otherwise complete assignments, uncovered paths can infer latches.
 
-**Preserve Moore dependency.** The output value must be a function of state only. A combinational sensitivity list must include every signal the process reads; this decoder reads only `state`, while `process(all)` would preserve the same Moore classification. State decoding remains combinational and is not the same as registering the output.
+**Derive outputs only from state.** The output must depend only on state to remain Moore. This decoder therefore reads only `state`, which is also its sensitivity list; using `process(all)` would not change that dependency. The decode still uses combinational logic, however, so separating it into a process does not register the output.
 
 **Synchronize external inputs first.** Separating the processes does not protect the state decision from an asynchronous `x`. Synchronize or handshake external controls before they enter the FSM.
 

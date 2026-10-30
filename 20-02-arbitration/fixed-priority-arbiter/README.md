@@ -2,7 +2,7 @@
 
 Grants a shared resource to one of N requesters. When idle, or when the current holder signals done, it registers a one-hot grant for the lowest-index active request. The grant is held, whatever the requests do, until service ends.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **20.2 — Arbitration**.
+Companion to *FPGA Identikits* by Andrea Fato, group **21.2 — Arbitration**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Starvation is part of the contract.** The lowest active index is always served next. Lower indices that keep requesting can hold off index N$-$1 forever; use the round-robin arbiter when every requester needs a bound.
 
-**End every grant with `done`.** While a grant is held, requests are ignored. A holder that drops `req` without `done` keeps the resource locked; drop `req` by the `done` edge unless it wants another turn.
+**End every grant with `done`.** Dropping `req` does not release an active grant: the arbiter waits for `done` and ignores requests while the grant is held. The holder must signal completion to unlock the resource. It should also lower `req` by that edge unless it wants another turn.
 
 **Consume grants synchronously.** Meet clock timing for `req` and `done`. Registered grant bits can have physical skew at handover; they do not guarantee asynchronous bus turnaround. Add separate dead-time logic when drivers require it.
 
-**Watch the pick path for wide N.** The priority chain grows with N and feeds the grant register. For large N, use a tree or look-ahead encoder, or split the arbiter into stages.
+**Check priority-chain delay.** The priority chain grows with N and feeds the grant register. For large N, use a tree or look-ahead encoder, or split the arbiter into stages.
 
 ## Files
 

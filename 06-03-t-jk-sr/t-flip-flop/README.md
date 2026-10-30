@@ -8,11 +8,11 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**One tick per edge.** A pulse on `t` that spans two rising edges produces two flips, so use a one-cycle enable when exactly one transition is required. Holding `t` high produces a divide-by-two state; treat that state as data or an enable unless it is routed through a dedicated clock resource.
+**A high toggle input acts on each rising edge.** A pulse on `t` that spans two rising edges produces two flips, so use a one-cycle enable when exactly one transition is required. Holding `t` high produces a divide-by-two state; treat that state as data or an enable unless it is routed through a dedicated clock resource.
 
 **Constrain the toggle path.** `t` and synchronous `rst` must meet setup and hold at `clk`. The `q`-to-toggle feedback is inside the same register stage; still check the resulting clock-to-output and downstream setup path in static timing analysis.
 
-**Feedback changes the next-state function.** The template already implements toggling. Feeding `q` back to `t` changes the value sampled at the next edge; it does not retrigger the same edge. Such a registered feedback path must meet setup and hold, like any other data path.
+**Feedback changes the next-state function.** Toggling is already implemented inside the template. Connecting `q` to `t` therefore changes the condition for the next toggle; it does not cause another toggle at the current edge. Like any registered feedback path, that connection must meet setup and hold.
 
 ## Files
 

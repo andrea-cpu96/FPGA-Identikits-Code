@@ -10,7 +10,7 @@ interface assumptions and design pitfalls.
 
 **Keep one driver for storage.** Two clocked processes assigning one RAM signal create multiple drivers in VHDL simulation. This common-clock form places both writes in one process. True dual-port describes port capability; it does not require independent clocks.
 
-**Exclude cross-port collisions.** Both ports always read, so even one writer conflicts with the other port reading the same address. The assertion detects this in simulation; it does not arbitrate or protect hardware. Prevent such requests in surrounding control.
+**Exclude cross-port collisions.** Each port reads on every edge, including while writing. A write therefore conflicts with the other port whenever both address the same location. The assertion reports this in simulation but cannot arbitrate hardware access; the surrounding controller must prevent the conflicting requests.
 
 **Check the target's RAM template.** Inference and same-port read-first support are tool- and device-dependent. For independent clocks, use a vendor-approved dual-clock template or IP with defined collision restrictions; do not split this RAM signal into two writing processes.
 

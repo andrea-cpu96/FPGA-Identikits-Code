@@ -2,15 +2,15 @@
 
 A toggle flip-flop changes state at each rising edge of clk. After reset, its output has half the source frequency and equal high and low intervals of one source-clock period each.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **22.1 — Generated clocks and periodic enables**.
+Companion to *FPGA Identikits* by Andrea Fato, group **23.1 — Generated clocks and periodic enables**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Prefer an enable for ordinary logic.** Routing `clk_div2` to register clock pins creates another clock network. A toggle output from fabric is not automatically on a dedicated clock route. If a slower action is all that is needed, keep consumers on `clk` and enable them.
+**Prefer an enable for ordinary logic.** Connecting `clk_div2` to register clock pins creates a second clock network, and the fabric output does not automatically use dedicated clock routing. If the aim is simply to update less often, keep the registers on `clk` and use an enable to select their active cycles.
 
-**Constrain any real generated clock.** If this signal actually clocks registers, define its relationship to `clk` in the timing flow and use appropriate device clocking resources and routing. Check crossings, clock skew, and reset release in the implemented design.
+**Constrain the divided clock.** If this signal actually clocks registers, define its relationship to `clk` in the timing flow and use appropriate device clocking resources and routing. Check crossings, clock skew, and reset release in the implemented design.
 
 **Reset establishes phase, not an immediate level.** `rst` is synchronous. Raising it between edges does not immediately pull the output low; it is sampled at the next rising edge. Without a reset edge, the RTL starts unknown in simulation.
 

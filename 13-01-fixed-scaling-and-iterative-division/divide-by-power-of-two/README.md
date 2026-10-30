@@ -10,9 +10,9 @@ interface assumptions and design pitfalls.
 
 **Keep the shift constant.** A generic K fixes the bit routing during elaboration. Synthesis normally reduces this operation to wiring and zeros, not a general divider. Making K a run-time input changes the circuit into a variable shifter, which may need a multiplexer network.
 
-**Choose the rounding rule.** Dropping low bits rounds an unsigned quotient down, not to the nearest integer. A rounded result needs a separate rule and sufficient intermediate width; adding a rounding bias in N bits can overflow before the shift.
+**Choose the rounding rule.** Discarding low bits rounds an unsigned quotient down. If the application needs rounding to the nearest integer, define that rule separately and allow enough intermediate width. Adding a rounding bias in only N bits can overflow before the shift takes place.
 
-**Signed shifting is different.** An arithmetic right shift repeats the sign bit. For a negative value it rounds toward negative infinity: $-3$ shifted right once gives $-2$, while signed integer division by 2 truncates toward zero and gives $-1$. Do not exchange these operations blindly.
+**Signed right shifts round down.** An arithmetic right shift repeats the sign bit. For a negative value it rounds toward negative infinity: $-3$ shifted right once gives $-2$, while signed integer division by 2 truncates toward zero and gives $-1$. Do not exchange these operations blindly.
 
 **A shift does not validate data.** This template copies retained `std_logic` elements and inserts zeros. Unknown and weak values in retained positions remain; discarded positions no longer affect the output. The wiring does not synchronize asynchronous data or ensure glitch-free sampling.
 

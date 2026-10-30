@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Apply reset through an edge.** Without a sampled reset, simulation starts unknown and the hardware startup value is device-dependent.
 
-**Decode with timing in mind.** A combinational comparison of a changing counter may glitch while bits settle. Register terminal events when an exact same-clock pulse is required. If the event crosses into another clock domain, use an appropriate CDC scheme.
+**Decode with timing in mind.** Counter bits do not settle at exactly the same instant, so a combinational comparison can briefly indicate a false match. Register terminal events when an exact same-clock pulse is required. If the event must reach another clock domain, also transfer it with an appropriate CDC scheme.
 
 **Do not use a counter bit as a new fabric clock.** Prefer a clock-enable pulse so all consuming logic remains on the primary clock network.
 

@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Keep producer and consumer ordering aligned.** Bit zero maps to binary zero and bit seven maps to binary seven. Reversing either vector changes that meaning without causing a type error.
 
-**Validity logic has a cost.** Detecting zero-hot and multi-hot inputs adds logic beyond the encoder. If a local invariant already guarantees one-hot operation, an assertion-only check may be sufficient; retain a valid signal when downstream logic must recover from violations in hardware.
+**Validity logic has a cost.** Checking for zero or multiple asserted bits requires logic beyond the encoder itself. If the surrounding design already guarantees exactly one asserted bit, a simulation assertion may be sufficient. Keep a hardware valid signal when downstream logic must detect and recover from violations.
 
-**One-hot does not imply CDC safety.** Several bits can be observed during an asynchronous transition. Transfer the code with an appropriate handshake or synchronization scheme before encoding it. The combinational `valid` output describes only the settled binary pattern; it does not certify timing or a glitch-free transition. Capture `bin` and `valid` together.
+**One-hot does not imply CDC safety.** During an asynchronous code transition, a receiver can observe zero or several asserted bits. Transfer the code with an appropriate handshake or synchronization scheme before encoding it. The combinational `valid` output describes only the settled binary pattern; it does not certify timing or a glitch-free transition. Capture `bin` and `valid` together.
 
 ## Files
 

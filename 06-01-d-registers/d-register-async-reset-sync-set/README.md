@@ -8,7 +8,7 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Three-way priority.** The combination makes the priority order part of the contract: an asynchronous clear, a synchronous preset, and a normal capture can all be candidates in one cycle. State the order in the interface comment so the implementation never guesses. When reset is inactive, `set` and any captured `d` must meet setup and hold at `clk`.
+**Three-way priority.** Clear, preset and data capture can be requested together, so the interface must state which wins: asynchronous reset first, then synchronous set, then normal capture. Document that order so the surrounding logic uses the same rule. With reset inactive, `set` and any captured `d` must meet setup and hold at `clk`.
 
 **Reset release is a timing event.** Once `rst` falls, the next rising edge may preset or capture. An unsynchronized release can violate recovery or removal timing, so synchronize deassertion in the destination clock domain before relying on the synchronous set or data path.
 

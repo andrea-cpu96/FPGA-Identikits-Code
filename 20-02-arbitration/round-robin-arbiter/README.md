@@ -2,13 +2,13 @@
 
 Grants a shared resource to one of N requesters. When idle, or when the current holder signals done, it searches from the requester after the last one served and registers a one-hot grant, or zero if none is active. Every active requester is served within N$-$1 other grants.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **20.2 — Arbitration**.
+Companion to *FPGA Identikits* by Andrea Fato, group **21.2 — Arbitration**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Fairness is counted in grants.** The bound requires a continuously pending request and every holder eventually raising `done`; one long service delays everyone. Limit service length when a bound in cycles is required.
+**Fairness is counted in grants.** The fairness bound assumes that a request stays pending and every holder eventually signals `done`. A long service delays all other requesters, even though their order remains fair. To guarantee a wait measured in clock cycles, also limit how long each grant can be held.
 
 **The pointer moves only on a grant.** A search that finds no request leaves `last` unchanged and the grant zero. A `done` while idle adds no completion action; pending requests can still win that edge.
 

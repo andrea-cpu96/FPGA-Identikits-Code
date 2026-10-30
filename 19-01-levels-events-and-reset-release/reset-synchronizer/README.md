@@ -2,7 +2,7 @@
 
 Asserts an active-low reset without waiting for a clock. When the external reset returns high, two rising clock edges shift ones through a register chain before the local reset is released. Each destination clock domain needs its own reset-release chain.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **19.1 — Levels, events, and reset release**.
+Companion to *FPGA Identikits* by Andrea Fato, group **20.1 — Levels, events, and reset release**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -14,7 +14,7 @@ interface assumptions and design pitfalls.
 
 **Constrain the output reset network.** Releasing after a clock edge does not automatically satisfy every downstream register's recovery/removal or synchronous-reset setup/hold limits. Budget clock skew, reset fanout and routing delay, and check the relevant timing reports.
 
-**Release each domain locally.** Do not reuse a reset synchronized to one clock as the release signal for unrelated clocks. Coordinate interfaces when domains leave reset at different times. Two edges describe ideal RTL; metastability and clock startup can delay physical release.
+**Release each domain locally.** A reset synchronized to one clock cannot safely release registers on an unrelated clock. Give each domain its own release chain and coordinate their interfaces while they leave reset at different times. The two-edge delay describes ideal RTL; metastability or clock startup can delay the physical release.
 
 ## Files
 

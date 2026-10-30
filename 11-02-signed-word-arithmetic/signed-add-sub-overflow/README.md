@@ -8,9 +8,9 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Keep signed and unsigned status apart.** Carry and borrow come from bit W of the zero-extended sum or difference; signed overflow compares sign bits. Neither flag can be derived from the other, so a unit serving both interpretations needs both.
+**Keep signed and unsigned status apart.** Carry and borrow report the extra bit of zero-extended arithmetic, whereas signed overflow reports whether the mathematical result fits the signed range. Neither flag determines the other. A unit used with both interpretations must therefore provide both kinds of status.
 
-**The wrapped pattern is still the result.** On overflow, `result` keeps the modulo-$2^W$ pattern with the wrong sign. Saturate, widen the result, or act on `ovf` before downstream logic trusts the value.
+**Overflow leaves a wrapped result.** On overflow, `result` keeps the modulo-$2^W$ pattern with the wrong sign. Saturate, widen the operands before the operation, or act on `ovf` before downstream logic trusts the value.
 
 **Watch the most negative value.** $-2^{W-1}$ has no positive counterpart in W bits, so $0-(-2^{W-1})$ overflows. Negation and absolute value built from this unit inherit that case.
 

@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Signedness selects the fill.** In `numeric_std`, a signed right shift replicates the leftmost bit, while an unsigned shift inserts zeros. Because `std_logic_vector` has no numeric signedness, convert it explicitly at the operation.
 
-**Do not assume truncation toward zero.** Arithmetic right shift floors negative values. To truncate toward zero, apply a sign- and amount-dependent correction, or use division instead; never apply both scaling operations.
+**Do not assume truncation toward zero.** Arithmetic right shift floors negative values. To truncate toward zero, apply a sign- and amount-dependent correction, or use division instead; applying both would scale the value twice.
 
-**Account for discarded bits.** A same-width right shift cannot overflow, but it loses low-order information and reports neither remainder nor inexact status. Add sticky-bit or rounding logic as needed. Saturation belongs only to surrounding arithmetic or a narrower destination that can exceed its range.
+**Account for discarded bits.** A right shift at unchanged width cannot overflow, but it discards low-order bits without reporting a remainder or an inexact result. Add sticky-bit or rounding logic if that information matters. If surrounding arithmetic or a later narrowing step can exceed the destination range, consider saturation there.
 
-**Budget a variable path.** A constant shift is generally wiring; a run-time amount infers a barrel network. Register or pipeline the settled output when needed. The fallback does not make asynchronous or metastable controls safe; establish a coherent transfer before shifting.
+**Allow for variable-shift delay.** A constant shift is generally wiring; a run-time amount infers a barrel network. Register or pipeline the settled output when needed. The fallback does not make asynchronous or metastable controls safe; establish a coherent transfer before shifting.
 
 ## Files
 

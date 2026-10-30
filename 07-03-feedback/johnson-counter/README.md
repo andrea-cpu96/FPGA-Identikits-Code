@@ -8,7 +8,7 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**The 2N claim assumes a legal start.** Reset enters the intended cycle. An arbitrary or corrupted state may belong to another cycle and is not guaranteed to converge back without reset or recovery logic.
+**Reset establishes the 2N-state cycle.** The counter visits 2N states when it starts in the intended cycle, which reset establishes. An arbitrary or corrupted state may enter a different cycle and keep circulating there. Use reset or recovery logic if the design must return to the legal sequence.
 
 **Startup is not reset.** No initial state is declared. Apply the synchronous reset through a rising edge before interpreting the phase pattern; hardware power-up behavior depends on the target device.
 

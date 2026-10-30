@@ -8,9 +8,9 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Reset crosses the clock boundary.** An asynchronous reset changes `q` between clock edges, so downstream logic must tolerate a clear at any time. Prefer a synchronous reset when the rest of the design samples only at the clock; use the async form when reset must act without waiting for a clock edge. The clear still has physical propagation delay, and the reset pulse must meet the device's minimum pulse-width requirement. When reset is inactive, captured `d` still must meet setup and hold at `clk`.
+**Reset can act between clock edges.** An asynchronous reset changes `q` between clock edges, so downstream logic must tolerate a clear at any time. Prefer a synchronous reset when the rest of the design samples only at the clock; use the async form when reset must act without waiting for a clock edge. The clear still has physical propagation delay, and the reset pulse must meet the device's minimum pulse-width requirement. When reset is inactive, captured `d` still must meet setup and hold at `clk`.
 
-**Deassert is the hard part.** Asserting `rst` clears without waiting for a clock. Releasing it near a rising edge can violate recovery or removal timing and release bits inconsistently. Synchronize deassertion in the destination clock domain, then verify recovery/removal and reset distribution in the implemented design.
+**Synchronize reset release.** Asserting `rst` clears the register without waiting for a clock, but releasing it near a rising edge can violate recovery or removal timing. Different bits may then leave reset on different cycles. Synchronize the release in the destination clock domain, and verify recovery/removal timing and reset distribution after implementation.
 
 ## Files
 

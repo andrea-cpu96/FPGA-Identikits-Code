@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Choose signedness deliberately.** These casts interpret both operands as unsigned. Signed multiplication needs `signed` operands and a two's-complement result contract; changing the output cast alone is not enough.
 
-**Budget the combinational path.** A multiplier can map to DSP hardware or logic depending on width, target, and synthesis settings. The operator does not guarantee a DSP block or a clock frequency. Outputs can glitch; register the result when a downstream interface requires cycle-stable data.
+**Budget the combinational path.** Synthesis may implement the multiply with DSP hardware or ordinary logic, depending on width, target and settings. The multiplication operator alone guarantees neither a DSP block nor a clock frequency. Check the mapped path, and register the result if the consumer needs stable data throughout a cycle.
 
-**Simulation values are not a validity protocol.** This template uses standard `numeric_std` arithmetic, not the preceding add/subtract blocks' zero fallback. Unknown inputs can propagate unknown results; weak levels follow the library's normalization. Supply binary, settled operands.
+**Check operand values in simulation.** This template uses standard `numeric_std` arithmetic, not the preceding add/subtract blocks' zero fallback. Unknown inputs can propagate unknown results; weak levels follow the library's normalization. Supply binary, settled operands.
 
 ## Files
 

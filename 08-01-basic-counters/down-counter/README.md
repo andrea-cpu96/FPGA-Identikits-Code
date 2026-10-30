@@ -8,13 +8,13 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Zero is not an automatic stop.** Fixed-width subtraction wraps, so a zero detector does not prevent the next transition. A countdown timer needs explicit busy and completion semantics rather than this free-running form.
+**Zero is not an automatic stop.** After reaching zero, the next subtraction wraps to the maximum value. Detecting zero does not stop the counter. For a countdown that completes and then waits, use a timer with explicit busy and completion behavior instead of this free-running block.
 
 **Choose the reset value deliberately.** Resetting to zero means the first decrement jumps to the maximum. Reset to a preload value when a descending sequence must begin elsewhere.
 
 **Reset must meet timing.** Synchronous `rst` must meet setup and hold requirements at `clk`.
 
-**Unsigned meaning is explicit.** The state is not a negative number after underflow; it is the maximum unsigned code. Use `signed` only when two's-complement ordering is genuinely the contract.
+**Underflow wraps to the largest value.** The state is not a negative number after underflow; it is the maximum unsigned code. Use `signed` only when two's-complement ordering is genuinely the contract.
 
 **Pause with an enable, not clock gating.** If a paused variant is needed, add a synchronous clock-enable condition rather than gating the clock.
 

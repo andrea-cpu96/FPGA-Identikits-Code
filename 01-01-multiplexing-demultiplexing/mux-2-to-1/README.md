@@ -2,13 +2,13 @@
 
 Forwards one of two data words to a shared output. The select input controls the route directly: this block stores no state and responds after only its combinational propagation delay.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **1.1 — Multiplexing & Demultiplexing**.
+Companion to *FPGA Identikits* by Andrea Fato, group **1.1 — Data selection and distribution**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Define non-binary behavior.** Writing `d1 when sel='1' else d0` also selects `d0` for unknown or weak controls. This template instead warns and drives zero for every non-binary select value. That simulation fallback does not make a metastable input safe; Section B.5 explains the distinction.
+**Define non-binary behavior.** Writing `d1 when sel='1' else d0` selects `d0` whenever `sel` is not exactly `'1'`, including unknown or weak values. This template instead reports those values and drives zero. The fallback makes simulation predictable, but cannot make a metastable hardware input safe; Section B.5 explains why.
 
 **Selection is not synchronization.** A multiplexer can select data from different clock domains, but it cannot make asynchronous multi-bit data coherent. When signals cross clock domains, use an appropriate CDC (see the book's CDC appendix) technique and keep the select signal stable throughout the destination's capture window. Registering the mux output alone does not solve the CDC problem, and a standard RTL multiplexer should not be used as a glitchless clock-mux primitive.
 

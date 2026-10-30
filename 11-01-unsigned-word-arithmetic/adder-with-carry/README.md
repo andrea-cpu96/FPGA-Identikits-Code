@@ -8,13 +8,13 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Keep the widened bit.** Resize or prepend a zero to both operands before adding. Truncating first and trying to recover carry from the W-bit sum loses information. A carry-in must be added at the same widened precision.
+**Extend operands before adding.** Resize or prepend a zero to both operands before adding. Truncating first and trying to recover carry from the W-bit sum loses information. A carry-in must be added at the same widened precision.
 
 **State the operand convention.** A bit pattern is not inherently signed. This template uses `unsigned` and `numeric_std`; do not mix signed and unsigned interpretations in one carry chain.
 
 **Do not treat carry as a clock.** The outputs can glitch while operands change. Register the sum and carry together when a receiving interface needs a stable cycle result, and budget the carry-chain delay at the chosen width.
 
-**Handle invalid simulation values.** The strict binary check exposes unknown, high-impedance, and weak input levels instead of silently coercing them. Zero can also be a valid result, so consumers cannot detect the fallback from the outputs alone; the warning is the simulation diagnostic.
+**Handle invalid simulation values.** The strict binary check reports unknown, high-impedance and weak input values rather than silently converting them. It then produces zero, which could also be a valid arithmetic result. Use the warning to identify invalid input in simulation; the output value alone cannot distinguish it.
 
 ## Files
 

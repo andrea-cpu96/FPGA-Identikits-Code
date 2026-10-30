@@ -1,4 +1,4 @@
--- Self-checking tests for identikit 19.1.2: Pulse synchronizer.
+-- Self-checking tests for identikit 20.1.2: Pulse synchronizer.
 -- Each case instantiates only this identikit. Models use sampled inputs.
 -- Family stimulus/reference variables may be shared; only this DUT is checked.
 -- Functional RTL verification does not model analog metastability or routing.

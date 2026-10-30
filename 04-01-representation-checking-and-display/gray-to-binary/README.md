@@ -10,9 +10,9 @@ interface assumptions and design pitfalls.
 
 **Decode after synchronization.** In a CDC (see the book's CDC appendix) counter scheme, synchronize the registered Gray bits before conversion. Decoding the asynchronous source directly recreates a multi-bit combinational bus at the crossing and defeats the purpose of limiting ambiguity.
 
-**A word cannot prove a valid transition.** A destination may repeat an observation or skip source values, so successive synchronized samples can legitimately differ by more than one Gray bit. A temporal monitor needs a previous value plus protocol and rate bounds; an unconditional one-bit-change assertion at the receiver is wrong.
+**Received Gray samples may skip counts.** A receiver can sample the same source value twice or miss intermediate counts. Successive synchronized observations may therefore differ in several Gray bits even when the source changes one bit at a time. To check progress, compare successive values using the protocol and rate limits; do not require every received pair to differ by one bit.
 
-**Budget the prefix path.** Lower output bits depend on progressively more Gray bits. Synthesis can balance or restructure the XOR network, but a wide decoder can still become a timing path. Register or pipeline the binary result when the receiving latency contract permits it.
+**Check XOR decoding delay.** Each binary bit XORs its own and all higher Gray positions, so lower bits depend on more inputs. Synthesis can balance or restructure the XOR network, but a wide decoder can still become a timing path. Register or pipeline the binary result when the receiving latency contract permits it.
 
 **Do not use transient output as an event.** Even a one-bit Gray input transition can propagate through several decoded binary bits at different times. Use the settled or registered binary word for arithmetic and control; do not derive clocks or asynchronous pulses from raw decoded bits.
 

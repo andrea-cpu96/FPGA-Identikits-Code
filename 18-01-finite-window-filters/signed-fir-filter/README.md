@@ -14,7 +14,7 @@ interface assumptions and design pitfalls.
 
 **Budget the arithmetic path.** All products and additions occur between adjacent clock edges. Larger tap counts can need substantial logic or DSP resources and a longer clock period. A pipelined implementation changes latency and needs matching valid delays.
 
-**Count accepted samples.** Enable gaps hold the history and output and clear valid. The block has no ready input. Provide synchronous binary controls and samples; reset wins over ce. Coefficients cannot be changed while running.
+**Advance only when sample enable is high.** Enable gaps hold the history and output and clear valid. The block has no ready input. Provide synchronous binary controls and samples; reset wins over ce. Coefficients cannot be changed while running.
 
 ## Files
 

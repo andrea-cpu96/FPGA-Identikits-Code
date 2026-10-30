@@ -8,9 +8,9 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**The initializer is not a reset.** It sets the internal register's initial value in RTL simulation. Hardware startup at that value requires support from the target device and synthesis flow. To load zero again, present zero on `d` at a rising edge; this block has no dedicated reset or reinitialize input.
+**The initializer is not a reset.** The declared initializer establishes the register's starting value in RTL simulation. To obtain that same startup value in hardware, the device and synthesis flow must support initialization. The initializer cannot clear the register again during operation: to load zero later, present zero on `d` at a rising edge.
 
-**Constrain normal operation.** After configuration, this is an ordinary edge-triggered register: `d` must meet setup and hold at `clk`, and the path through `q` must satisfy the downstream timing constraint.
+**Meet data-path timing.** After configuration, this is an ordinary edge-triggered register: `d` must meet setup and hold at `clk`, and the path through `q` must satisfy the downstream timing constraint.
 
 **Verify initialization support.** Check that the internal state's declared value maps to the device's register initialization feature in the selected synthesis flow. Section B.2 explains how to distinguish configuration-time initialization from a run-time reset.
 

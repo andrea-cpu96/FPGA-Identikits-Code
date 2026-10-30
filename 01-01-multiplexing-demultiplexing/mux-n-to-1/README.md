@@ -2,19 +2,19 @@
 
 Selects one of N equal-width data words using a binary index. All input words are packed into a single vector, while generics define the number of sources, the width of each word, and the width of the select index.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **1.1 — Multiplexing & Demultiplexing**.
+Companion to *FPGA Identikits* by Andrea Fato, group **1.1 — Data selection and distribution**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Size and decode the index explicitly.** Keep `SEL_WIDTH` in 1--30 and require `SEL_WIDTH >= max(1, ceil(log2(N)))`; the template checks `N <= 2**SEL_WIDTH`. Each legal binary code selects one word, with no priority between sources. Validate bits before numeric conversion.
+**Size and decode the index explicitly.** Keep `SEL_WIDTH` in 1--30 and require `SEL_WIDTH >= max(1, ceil(log2(N)))`; the template checks `N <= 2**SEL_WIDTH`. Each legal binary code selects one word, with no priority between sources. Check for literal `'0'`/`'1'` bits before numeric conversion.
 
 **Reserve `when others` for a fallback.** In an explicit `case` or selected assignment, name every legal route's binary code. Using `others` for the last source also selects it for unknown or weak control values. The indexed template instead checks validity and range, leaving zero for rejected values.
 
-**Separate width from tree depth.** Increasing W adds parallel bit paths and routing load, not necessarily logic levels. Increasing N or cascading muxes can deepen the selection tree; LUT size and synthesis determine the mapping. Check area and timing rather than assuming one RTL expression means one logic stage.
+**Separate width from tree depth.** Increasing W adds parallel bit paths and routing load without necessarily adding logic levels. Increasing N, or cascading muxes, can instead deepen the selection tree. Because LUT size and synthesis affect the final structure, check area and timing rather than assuming one RTL expression becomes one logic stage.
 
-**Preserve packing and capture timing.** Word 0 uses the least-significant W bits; producer and consumer must agree on this order. Keep the index stable around capture and use a coherent CDC (see the book's CDC appendix) protocol for asynchronous data or control. The simulation fallback does not make metastable inputs safe.
+**Preserve packing and capture timing.** Word 0 occupies the least-significant W bits, so the producer and consumer must use the same packing order. The index must also remain stable around capture. If data or control is asynchronous, use a coherent CDC (see the book's CDC appendix) transfer: the simulation fallback cannot protect against metastability.
 
 ## Files
 

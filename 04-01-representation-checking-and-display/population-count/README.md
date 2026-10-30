@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Invalid simulation values.** An `X`, `Z`, or other non-binary bit is not a zero. The template warns and drives a defined zero for the entire word so an unknown cannot silently reduce the apparent count.
 
-**Budget the reduction path.** The reference adds one bit at a time; the combinational path and resources grow with W. For a wide word or tight clock, a balanced adder tree or pipelined reduction may be preferable.
+**Budget the reduction path.** The reference adds the input bits one at a time. As W grows, the resources and combinational delay can grow too, so check the mapped result. A balanced adder tree or pipelined reduction may suit a wide word or tight clock period better.
 
 **Do not treat a transient count as a pulse.** Several input bits can change at different times and produce intermediate counts. Register the settled result before it controls sequential decisions requiring a stable value.
 

@@ -10,7 +10,7 @@ interface assumptions and design pitfalls.
 
 **Know which memory you get.** Combinational reads rule out block RAM. Small banks map to distributed RAM or to flip-flops and multiplexers; a second read port usually duplicates distributed RAM. Check the synthesis report as width or depth grows.
 
-**Distinguish sampling from readback.** For a same-address read, a receiving register sampling at the write edge sees the old word. The read port shows the new word after the storage update and read-path delay. Use a write-through bypass if the receiver must capture the incoming write data at that same edge.
+**Check read timing during a write.** At a same-address write edge, a receiving register still captures the old word. The read port changes to the new word only after the write and read-path delays. If the receiver needs the incoming write data on that very edge, add a write-through bypass.
 
 **Budget the read path.** Address-to-data delay adds to the consumer's combinational path, and outputs may glitch while an address settles. Sample them on the clock, or register addresses or outputs when timing is tight.
 

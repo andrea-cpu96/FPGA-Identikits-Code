@@ -10,9 +10,9 @@ interface assumptions and design pitfalls.
 
 **Match electrical polarity.** The table is active high and naturally describes common-cathode logic. Many boards use common-anode displays or active-low drivers; invert the complete pattern at a clearly documented boundary instead of changing individual rows.
 
-**Keep order and wiring together.** The names `abcdefg`, vector indices, connector pins, and physical segments must describe the same order. A correct lookup table with a different board pin order produces recognizable but wrong glyphs.
+**Keep order and wiring together.** Check that `abcdefg`, the vector indices, connector pins and physical segments all use the same order. If the board wiring differs from the lookup table, the decoder can produce recognizable but incorrect characters even though the table itself is correct.
 
-**Provide a real driver.** FPGA pins need current-limiting resistors and must remain within device and display current limits. For several digits, use digit enables and a timed scan controller; this combinational decoder alone does not provide multiplexing or brightness control.
+**Limit segment current and control scanning.** Limit current in each segment path with suitable resistors or drivers, within both device and display ratings. For multiplexed digits, use digit enables and a timed scan controller; this combinational decoder alone does not provide multiplexing or brightness control.
 
 **Sequence digit handover.** Registering the pattern alone does not prevent ghosting. A scan controller should disable the current digit, update the segment pattern, allow the signals to settle, and only then enable the next digit. This decoder supplies the pattern; the controller owns that sequence.
 

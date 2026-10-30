@@ -2,17 +2,17 @@
 
 Routes one data word to one of two outputs. The selected output follows the input while the other output is driven to zero; the block stores no state and responds combinationally to both data and select changes.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **1.1 — Multiplexing & Demultiplexing**.
+Companion to *FPGA Identikits* by Andrea Fato, group **1.1 — Data selection and distribution**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Drive both outputs every time.** The process clears `y0` and `y1` before selecting a destination. The legal branch overrides only one output, while invalid control leaves the complete zero default in place. This structure prevents unintended storage.
+**Drive both outputs every time.** The process clears `y0` and `y1` before selecting a destination. The legal branch overrides only one output, while invalid control leaves the complete zero default in place. Assigning both outputs on every evaluation prevents unintended storage.
 
-**Keep route numbering explicit.** Select zero maps to `y0`; reversing external connections changes the apparent route without a type error.
+**Keep route numbering explicit.** Select zero routes data to `y0`. Swapping `y0` and `y1` reverses the routing without a type error because their types match.
 
-**A demultiplexer is not a pulse router.** Select skew can truncate one output pulse or create a pulse on the other path. Hold the route stable over the destination capture interval, or register the control and data according to the receiving protocol.
+**Hold selection stable during a pulse.** Changing select during an input pulse can shorten that pulse on one output or create a pulse on the other path. Hold the route stable over the destination capture interval, or register the control and data according to the receiving protocol.
 
 **Selection is not synchronization.** A non-binary assertion is a simulation diagnostic, not protection from metastability. Apply the required CDC (see the book's CDC appendix) scheme before using an asynchronous select.
 

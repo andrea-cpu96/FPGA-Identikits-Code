@@ -8,11 +8,11 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Express the control precedence.** Clearing `y` first makes the disabled state the default. The indexed assignment occurs only after both the enable and select have passed their literal-binary checks, so no branch can leave an old output value behind.
+**Default all outputs to zero.** Clearing `y` first makes the disabled state the default. The indexed assignment occurs only after both the enable and select have passed their literal-binary checks, so no branch can leave an old output value behind.
 
 **Do not confuse enable with synchronization.** An asynchronous `en` or `sel` still requires a suitable CDC (see the book's CDC appendix) protocol before it controls synchronous destinations.
 
-**Enabled decoding can create hazards.** Select skew can momentarily activate the wrong output, and enable transitions can truncate or create pulses. Hold both controls stable over the destination capture interval, or register the decode in the receiving clock domain.
+**Enabled decoding can create hazards.** Select bits can arrive at different times and briefly activate the wrong output; changing enable can also shorten or create a pulse. To keep these transients out of a captured result, hold both controls stable through the capture interval or register the decode in the receiving clock domain.
 
 **Assertions describe simulation behavior.** The assertion detects and reports invalid values; the all-low fallback only defines their simulated output. Neither guarantees the electrical result of a metastable input.
 

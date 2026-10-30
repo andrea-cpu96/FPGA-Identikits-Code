@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Normalize operand widths.** Relational operands should have identical, intentional widths. Zero-extend unsigned values and sign-extend signed values; silent truncation or the wrong extension changes the numerical order.
 
-**Keep the policy coherent.** This template uses one decision chain and defined defaults to show interpretation and invalid-input behavior in one place. Independent expressions are also correct when they apply the same contracts and complete assignments; source structure alone does not guarantee a particular physical implementation.
+**Keep comparison outputs consistent.** This template puts the comparisons and invalid-input defaults in one decision chain so their relationship is easy to check. Separate expressions are also correct if they use the same interpretation and assign every output. Either style must be checked after synthesis; source structure alone does not determine the hardware.
 
-**Budget timing and crossings.** Wide magnitude comparison can form a long carry-like path. Never use raw relation flags as clocks, asynchronous resets, or event pulses. Register the flags together when required by the timing contract. Before comparing an asynchronous multi-bit bus, first transfer a coherent value across the clock-domain boundary.
+**Budget timing and crossings.** A wide comparison can create a long carry-like path, so check its timing before using the result. Register relation flags together when required, and do not use raw flags as clocks, asynchronous resets or event pulses. If an operand comes from another clock domain, transfer the complete word coherently before comparing it.
 
 ## Files
 

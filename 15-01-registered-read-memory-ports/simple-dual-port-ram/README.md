@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Do not trust simulated collision data.** Coincident read and write edges in the same simulation update can return old data because signal writes are deferred. Hardware mixed-port behavior depends on the primitive and mode. This template makes no usable result guarantee for a collision.
 
-**Initialize through a defined protocol.** Neither memory nor `dout` is initialized. Write valid contents before granting read access. A completed write is not a synchronized notification to another clock domain.
+**Initialize through a defined protocol.** Neither the memory nor `dout` starts with defined contents, so write valid words before granting read access. If the reader uses another clock, notify it through a synchronized control protocol; completing the write alone does not tell the reader that the word is ready.
 
 **Check inference and address limits.** Separate-clock RAM support is target-dependent. Verify the mapped RAM and timing requirements. Addresses must be binary and depth must fit the VHDL integer range and device capacity. Only literal `'1'` enables a write; invalid controls are not diagnosed.
 

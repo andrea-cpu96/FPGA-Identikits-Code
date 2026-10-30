@@ -12,7 +12,7 @@ interface assumptions and design pitfalls.
 
 **Meet setup and hold.** Both `d` and the synchronous `rst` control must be stable around the active clock edge. Constrain the complete register-to-register path, including clock-to-output delay and the downstream register's setup requirement.
 
-**Startup is not reset.** No initial value is declared. In simulation `q` stays `'U'` until the first edge; the power-up value in hardware is device-dependent. Drive the design through a reset sequence if a defined starting state is required.
+**Startup is not reset.** With no declared initial value, simulation begins with `q` at `'U'`. A rising edge establishes a known output only when it captures a known word or an asserted reset. Hardware power-up depends on the device, so use a reset sequence when the design requires a defined starting state.
 
 ## Files
 

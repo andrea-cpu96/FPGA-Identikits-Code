@@ -8,15 +8,15 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Asynchronous reset has asynchronous timing.** It clears without an edge, but physical hardware has propagation delay. Release must satisfy recovery and removal requirements; synchronize deassertion per the reset plan.
+**Check reset assertion and release timing.** Reset clears without waiting for an edge, but physical hardware has propagation delay. Release must satisfy recovery and removal requirements; synchronize deassertion per the reset plan.
 
-**Load wins over shifting.** When both are high at an edge, the full word is captured. `en` enables only shifting, so `en='0'` does not block a requested load.
+**Load wins over shifting.** When `load` and `en` are high at an edge, the full word is captured. `en` enables only shifting, so `en='0'` does not block a requested load.
 
 **Constrain synchronous inputs.** `load` and `en` must meet setup and hold at `clk`; `d` must meet timing on load and `si` on shift.
 
 **Direction is defined by index.** Shifting left moves old bit $i-1$ to bit $i$ for $1\le i\le N-1$, while `si` enters bit 0. At `N=1`, an enabled shift simply captures `si` into the sole stage.
 
-**Reset can change resource mapping.** Parallel load, enable, observable taps, and especially asynchronous reset may prevent inference of dedicated shift-register resources. Expect flip-flops when required by the target, and inspect synthesis instead of assuming an SRL-style implementation.
+**Reset can change resource mapping.** Parallel loading, enables, visible taps and especially asynchronous reset may be unsupported by a dedicated shift-register resource. Synthesis may therefore use flip-flops instead. Inspect the mapped result to see which resources the complete set of requested features requires.
 
 ## Files
 

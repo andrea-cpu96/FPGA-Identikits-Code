@@ -2,17 +2,17 @@
 
 Updates a 16-bit remainder with one message bit on each enabled clock, each byte most significant bit first. The register holds the running CRC for a generator; once the appended CRC has also passed through, zero reports that the frame passes the CRC check.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **23.1 — Streaming frame checks**.
+Companion to *FPGA Identikits* by Andrea Fato, group **24.1 — Streaming frame checks**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Specify the complete profile.** Match width, polynomial representation, initial value, input order, output reflection, and final XOR; verify the check value.
+**Specify the complete profile.** Match width, polynomial representation, initial value, input order, output reflection and final XOR at both ends. Verify the profile's check value.
 
-**Match the input order.** Feed bytes MSB first. An LSB-first link can buffer bytes and reorder their bits; it does not require a reflected profile.
+**Match the input order.** Feed bytes MSB first for this profile. An LSB-first link can buffer and reorder each byte; its wire order does not require a reflected CRC.
 
-**Check the residue.** The default CRC, appended unmodified MSB first, leaves zero. Other profiles may share zero; check their residue, append order, and transformations.
+**Check the residue.** Appending the default CRC unchanged, MSB first, leaves zero. For other profiles, verify the required residue, appended-bit order and final transformations.
 
 **Assert `start` only at a frame boundary.** Holding it high reloads `INIT` every edge. With `en` high, that edge also processes the first bit. Read `crc` after the last message bit and before the next frame starts.
 

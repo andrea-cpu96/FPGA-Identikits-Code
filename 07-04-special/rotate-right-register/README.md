@@ -2,7 +2,7 @@
 
 Loads an N-bit word, then moves every stored bit one position toward bit 0 on each enabled rising edge. The outgoing least-significant bit wraps into bit N-1, so no information is discarded or replaced.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **7.4 — Special**.
+Companion to *FPGA Identikits* by Andrea Fato, group **7.4 — Rotation and Selectable Delay**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -10,7 +10,7 @@ interface assumptions and design pitfalls.
 
 **Rotation is not a logical shift.** No zero or sign bit enters the word. Every rotation is a permutation, so the number of ones and zeros is preserved and N enabled rotations restore the original arrangement.
 
-**Rotation cannot establish known data.** With no declaration-time initial value, simulation begins unknown and rotation preserves it. A sampled reset or known parallel load must establish the word; resetting to zero and rotating forever leaves the permanent zero state.
+**Rotation cannot establish known data.** With no declared initial value, simulation starts with unknown bits, and rotation only moves those unknowns. A sampled reset or known parallel load must first establish the word. Reset produces all zeros, which remain zero under rotation until a nonzero word is loaded.
 
 **Constrain the sampled inputs.** `rst`, `load`, and `en` must meet setup and hold at `clk`; when `load='1'`, `d` must also meet timing at that edge.
 

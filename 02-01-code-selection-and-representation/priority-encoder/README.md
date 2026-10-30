@@ -8,15 +8,15 @@ interface assumptions and design pitfalls.
 
 ## Usage requirements
 
-**Priority comes from scan direction.** Iterating from `d(7)` toward `d(0)` and exiting on the first assertion defines the policy. Changing the vector direction or omitting `exit` can silently reverse the priority or make the last match win.
+**Priority comes from scan direction.** Iterating from `d(7)` toward `d(0)` and exiting on the first assertion defines the policy. Changing the scan direction or omitting `exit` can silently reverse the priority or make the last match win.
 
 **Always use the valid flag.** Index zero represents both `d(0)` and the chosen fallback; only `valid` distinguishes them.
 
 **Wide priority chains cost delay.** A linear priority encoder may form a long combinational path. For large request sets, consider a tree, a hierarchical encoder, or a registered arbitration stage after checking the target technology and timing report.
 
-**Selection is not arbitration.** This block has no service handshake, held grant, or fairness state. A persistent high-priority request can starve lower requests. A rotating arbiter is a stateful design, not merely another combinational encoding policy.
+**Fixed priority can starve lower requests.** This block identifies the highest-priority request but does not track whether it has been served. A persistent high-priority request can therefore starve lower requests. If service must be shared fairly, use a stateful arbiter with a handshake and rotating priority.
 
-**Validity is combinational.** It describes the settled binary request pattern, not timing or synchronization. Requests can glitch or cross clock domains unsafely; synchronize or handshake them, and register `y` and `valid` together when the result is captured.
+**Validity is combinational.** The `valid` flag indicates whether the settled request pattern contains a request; it does not establish safe timing. Synchronize or handshake requests that cross clock domains, and capture `y` and `valid` together so the index stays paired with its validity.
 
 ## Files
 

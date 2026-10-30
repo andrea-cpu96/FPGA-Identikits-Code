@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Widen before adding.** Zero-extend both operands to N+1 bits before addition. The extra result bit then reports unsigned overflow. If the addition is performed in N bits first, the carry is lost and a later resize cannot recover it.
 
-**Do not infer a status flag from the result.** All ones may be an exact sum or a clamped value. Expose the internal carry as a separate flag if the consumer must distinguish those cases. This implementation clamps every overflowing result; it does not remember that an overflow once occurred.
+**Do not infer a status flag from the result.** An all-ones output may be the exact sum or the limit substituted after overflow. Expose the internal carry separately if the consumer needs to distinguish them. This block clamps the current result only; it does not store a history of earlier overflows.
 
-**Signed saturation needs different limits.** Two's-complement addition uses signed-overflow detection and separate positive and negative bounds. An unsigned carry alone does not select the correct signed limit. Keep this template's operands and output unsigned throughout the surrounding datapath.
+**Signed saturation needs different limits.** Saturating two's-complement addition needs signed-overflow detection and separate positive and negative bounds. An unsigned carry alone does not select the correct signed limit. Keep this template's operands and output unsigned throughout the surrounding datapath.
 
-**Saturation is not synchronization.** The adder and output selection are combinational and can glitch while inputs change. Register the result when a stable cycle value is needed. Non-binary inputs follow `numeric_std` arithmetic; there is no custom warning or zero fallback.
+**Register the result when glitches matter.** The adder and output selection are combinational and can glitch while inputs change. Register the result when a stable cycle value is needed. Non-binary inputs follow `numeric_std` arithmetic; there is no custom warning or zero fallback.
 
 ## Files
 

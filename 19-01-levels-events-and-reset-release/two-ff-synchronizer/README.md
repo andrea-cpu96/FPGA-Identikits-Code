@@ -2,7 +2,7 @@
 
 Samples an asynchronous level through two registers on the destination clock. The first stage may become metastable; the time before the second stage samples it reduces the chance that an unsettled value reaches downstream logic.
 
-Companion to *FPGA Identikits* by Andrea Fato, group **19.1 — Levels, events, and reset release**.
+Companion to *FPGA Identikits* by Andrea Fato, group **20.1 — Levels, events, and reset release**.
 The RTL matches the printed VHDL template; see the book for its timing diagrams,
 interface assumptions and design pitfalls.
 
@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Preserve the resolving interval.** Use the target's synchronizer attributes and placement guidance; prevent retiming or shift-register extraction. Keep the stage-to-stage route short and timed. Exempt the asynchronous entry path as appropriate, not the path between the two registers.
 
-**Do not use the first stage elsewhere.** Feed only the next stage from its output. Extra fanout or combinational logic can compromise implementation. If a source clock exists, register the source level to avoid glitches and unnecessary input transitions.
+**Do not use the first stage elsewhere.** The first-stage output must drive only the second stage. Extra routing or logic reduces settling time and can expose other logic to metastability. If a source clock exists, register the source level to avoid glitches and unnecessary input transitions.
 
 **A bus needs a protocol.** Independent synchronizers on each bit do not preserve word coherence. Use a handshake, a suitably constrained Gray representation, or an asynchronous FIFO for multi-bit information. Even a single-bit event needs a different scheme if its pulse may be missed.
 
-**Check reliability and startup.** Two stages reduce but do not eliminate metastability risk. Use device data, clock and toggle rates, and available settling time to assess mean time between failures. Initial zero is not proof that the external input is low; it takes time for its real level to arrive.
+**Check reliability and startup.** Two stages make metastability failure less likely, but cannot rule it out. Estimate mean time between failures using device data, clock and toggle rates, and the available settling time. Also allow for startup: an initial output of zero does not show that the external input is low; its actual level takes time to pass through the chain.
 
 ## Files
 

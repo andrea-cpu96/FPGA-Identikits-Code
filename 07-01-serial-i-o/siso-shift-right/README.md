@@ -12,9 +12,9 @@ interface assumptions and design pitfalls.
 
 **Startup is not reset.** Simulation begins with `'U'` stages and hardware power-up is device-dependent. Reset clears the chain only when high at a rising edge; otherwise N known captures replace the unknown state.
 
-**Observe the correct side of the edge.** A same-clock receiver captures the pre-edge `dout`; the post-edge output is available for the next capture. With `N=1`, `din` appears just after its capture edge.
+**The receiver samples the pre-edge output.** A same-clock receiver captures the pre-edge `dout`; the post-edge output is available for the next capture. With `N=1`, `din` appears just after its capture edge.
 
-**Check implementation mapping.** Reset requirements can prevent use of dedicated shift-register resources; mapping depends on device and synthesis tool. A raw off-domain serial stream still needs an appropriate receiver or synchronizer.
+**Check implementation mapping.** A requested reset may prevent synthesis from using a dedicated shift-register resource, so check the mapping for the chosen device and tool. Also provide an appropriate receiver or synchronizer before shifting a serial stream from another clock domain.
 
 ## Files
 

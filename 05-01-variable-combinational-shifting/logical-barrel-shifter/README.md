@@ -10,11 +10,11 @@ interface assumptions and design pitfalls.
 
 **Zero fill is not sign fill.** A logical right shift divides only an unsigned value by a power of two. For two's-complement data, use an arithmetic right shift; the left shift is the same bit operation for both.
 
-**Discarded bits are silent.** Left shifts can overflow an unsigned value and right shifts truncate it; the block reports neither. Add overflow, sticky, or carry-out logic when the surrounding arithmetic needs it.
+**Bit loss is not reported.** A left shift can discard significant bits and overflow an unsigned value, while a right shift discards its low-order bits. This block reports neither loss. Add overflow, sticky-bit or carry-out logic if the surrounding arithmetic needs to detect it.
 
-**Size the amount deliberately.** `AMT_W` sets which amounts the interface can express. If a source should never exceed W-1, check or clamp it upstream; this block treats the larger codes as a valid all-zero shift.
+**Size the amount deliberately.** `AMT_W` sets which amounts the interface can express. If a source should never exceed W-1, check or clamp it upstream; this block accepts larger codes and shifts every data bit out, producing zero.
 
-**Budget the routing network.** A run-time amount and direction infer multiplexer stages whose delay grows with W. Register or pipeline the result when needed, and establish coherent controls before shifting.
+**Allow for variable-shift delay.** A run-time amount and direction infer multiplexer stages whose delay grows with W. Register or pipeline the result when needed, and establish coherent controls before shifting.
 
 ## Files
 

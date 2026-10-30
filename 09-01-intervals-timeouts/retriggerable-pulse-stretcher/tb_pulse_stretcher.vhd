@@ -1,3 +1,4 @@
+-- Self-checking tests for identikit 9.1.2: Retriggerable pulse stretcher.
 library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
